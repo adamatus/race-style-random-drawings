@@ -15,15 +15,46 @@
         </div>
         <script type="text/javascript">
 
+var getRandomInt = function(min, max) {
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+
+var nPonies = 4;
+var progress = [];
+for (var i = 0; i < nPonies; i++) {
+    progress.push(0);
+}
+
+var runPonies = function()
+{
+    if (running) {
+        if (Math.max.apply(Math,progress) < 90) {
+            var tmp = getRandomInt(0,nPonies-1);
+            progress[tmp] += 1
+            d3.selectAll('.racebar').data(progress)
+                .transition().ease('linear').duration(50).attr('width',function(d) { return x(d); })
+            setTimeout(runPonies,50);
+        } else {
+            console.log('Winner!');
+            running = false;
+        }
+    }
+}
+
+var running = false;
+
 var width = 900;
     height = 650;
+
+var xmax = 100,
+    ymax = nPonies + 1;
 
 var margins = [80, 100, 100, 30], mb = margins[0], ml = margins[1], mt = margins[2], mr = margins[3];
 var w = width - (ml + mr),
     h = height - (mb + mt);
-var x = d3.scale.linear().range([0, w]).domain([0,100]);
-var y = d3.scale.linear().range([h, 0]).domain([0,5]);
-var xAxis = d3.svg.axis().scale(x);
+var x = d3.scale.linear().range([0, w]).domain([0,xmax]);
+var y = d3.scale.linear().range([h, 0]).domain([0,ymax]);
+var xAxis = d3.svg.axis().scale(x).tickValues([]);
 var yAxis = d3.svg.axis().scale(y).ticks(y.domain()[1]).orient("left");
 
 // Add chart SVG
@@ -47,19 +78,31 @@ plot.append("g")
 d3.selectAll('#controls button')
     .data(['Go !'])
     .on('click',function(w) {
-        console.log('Clicked');
+        running = true;
+        runPonies();
         });
 
-var barLength = [0, 10, 20, 30, 10];
+
+d3.select('#data-region').selectAll('#finish-line')
+        .data([90])
+    .enter()
+        .append('svg:line')
+        .attr('id','finish-line')
+        .attr('x1',function(d) { return x(d); })
+        .attr('x2',function(d) { return x(d); })
+        .attr('y1',y(0))
+        .attr('y2',y(ymax))
+        .style('stroke','black')
+        .style('stroke-dasharray','10,10');
 
 d3.select('#data-region').selectAll('.racebar')
-        .data(barLength)
+        .data(progress)
     .enter()
         .append('svg:rect')
         .attr('height',y(0)-y(.5))
         .attr('width',function(d) { return x(d); })
         .attr('x',0)
-        .attr('y',function(d,i) { return y(i+.25); })
+        .attr('y',function(d,i) { return y(i+1.25); })
         .style('stroke','none')
         .classed('racebar',true)
         .style('fill','green');
