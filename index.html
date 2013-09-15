@@ -8,37 +8,84 @@
     </head>
     <body>
         <h1>Pony Race!</h1>
+              <div id="inputs">
+                  <input type="text" id="name">
+                  <input type="text" id="num">
+                  <button class="add">Add</button>
+              </div>
+
               <div id="controls">
-                  <span><button class="first last active">Go!</button></span>
+                  <button class="first last active">Go!</button>
               </div>
         <div id="chart">
         </div>
         <script type="text/javascript">
 
+// TODO Add color selector
+
 var getRandomInt = function(min, max) {
     return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
-var nPonies = 4;
+var nPonies = 0;
 var progress = [];
-for (var i = 0; i < nPonies; i++) {
-    progress.push(0);
-}
+var entrants = [];
 
 var runPonies = function()
 {
+    // TODO Add ability to pause
     if (running) {
         if (Math.max.apply(Math,progress) < 90) {
             var tmp = getRandomInt(0,nPonies-1);
             progress[tmp] += 1
-            d3.selectAll('.racebar').data(progress)
-                .transition().ease('linear').duration(50).attr('width',function(d) { return x(d); })
+            d3.selectAll('.pony').data(progress)
+                .transition().ease('linear').duration(50).attr('x',function(d) { return x(d); })
             setTimeout(runPonies,50);
         } else {
             console.log('Winner!');
             running = false;
         }
     }
+}
+
+var addEntrant = function()
+{
+    var name = document.getElementById('name').value,
+        num = document.getElementById('num').value;
+
+    // TODO Error check to make sure we have a name and that
+    // num is actually a number
+
+    for (var i = 0; i < +num; i++) {
+        progress.push(0);
+        entrants.push(name);
+    }
+    nPonies = nPonies + +num;
+    ymax = nPonies + 1;
+    y.domain([0,ymax]);
+    d3.select('.y.axis').transition().duration(500).call(yAxis);
+
+    // Update positions for existing ponies
+    var ponies = d3.select('#data-region').selectAll('.pony')
+            .data(progress);
+    ponies.transition().duration(100)
+            .attr('y',function(d,i) { return y(i+1.25); })
+            .attr('height',y(0)-y(.5));
+            
+    // Add new ponies
+    ponies.enter()
+            .append('svg:rect')
+            .attr('height',y(0)-y(.5))
+            .attr('x',function(d) { return x(d); })
+            .attr('width',x(10)-x(0))
+            .attr('y',function(d,i) { return y(i+1.25); })
+            .style('stroke','none')
+            .classed('pony',true)
+            .style('fill','green');
+
+    ponies.exit().remove();
+    
+    console.log('Adding entrant ' + name + ' ' + num + ' times');
 }
 
 var running = false;
@@ -55,7 +102,7 @@ var w = width - (ml + mr),
 var x = d3.scale.linear().range([0, w]).domain([0,xmax]);
 var y = d3.scale.linear().range([h, 0]).domain([0,ymax]);
 var xAxis = d3.svg.axis().scale(x).tickValues([]);
-var yAxis = d3.svg.axis().scale(y).ticks(y.domain()[1]).orient("left");
+var yAxis = d3.svg.axis().scale(y).orient("left");
 
 // Add chart SVG
 var svg = d3.select('#chart').append('svg:svg')
@@ -82,12 +129,17 @@ d3.selectAll('#controls button')
         runPonies();
         });
 
+d3.selectAll('#inputs button')
+    .data(['Add'])
+    .on('click',function(w) {
+        addEntrant();
+        });
 
-d3.select('#data-region').selectAll('#finish-line')
-        .data([90])
+d3.select('#data-region').selectAll('.border-line')
+        .data([10, 100])
     .enter()
         .append('svg:line')
-        .attr('id','finish-line')
+        .classed('border-line',true)
         .attr('x1',function(d) { return x(d); })
         .attr('x2',function(d) { return x(d); })
         .attr('y1',y(0))
@@ -95,13 +147,13 @@ d3.select('#data-region').selectAll('#finish-line')
         .style('stroke','black')
         .style('stroke-dasharray','10,10');
 
-d3.select('#data-region').selectAll('.racebar')
+d3.select('#data-region').selectAll('.ponie')
         .data(progress)
     .enter()
         .append('svg:rect')
         .attr('height',y(0)-y(.5))
-        .attr('width',function(d) { return x(d); })
-        .attr('x',0)
+        .attr('x',function(d) { return x(d); })
+        .attr('width',y(10))
         .attr('y',function(d,i) { return y(i+1.25); })
         .style('stroke','none')
         .classed('racebar',true)
