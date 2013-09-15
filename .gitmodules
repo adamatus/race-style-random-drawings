@@ -1,0 +1,6 @@
+[submodule "libs/jquery"]
+	path = libs/jquery
+	url = git@github.com:jquery/jquery.git
+[submodule "libs/really-simple-color-picker"]
+	path = libs/really-simple-color-picker
+	url = git@github.com:laktek/really-simple-color-picker.git
