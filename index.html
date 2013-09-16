@@ -65,7 +65,6 @@ var jockeys = [];
 
 var runPonies = function()
 {
-    // TODO Add ability to pause
     if (running) {
         var maxProgress = -1;
         for (var i = 0; i < ponies.length; i++) {
@@ -83,6 +82,8 @@ var runPonies = function()
         } else {
             // TODO Add nice winner pop-up
             console.log('Winner!');
+            d3.selectAll('#controls button').filter(function(d,i) { return i == 0;}).text('Done');
+            done = true;
             running = false;
         }
     }
@@ -158,13 +159,18 @@ var resetPonies = function() {
     {
         ponies[i].progress = 0;
     }
+    done = false;
+    running = false;
     d3.selectAll('.pony').data(ponies)
         .transition().ease('linear').duration(250).attr('x',function(d) {
                 return x(d.progress); })
+    d3.selectAll('#controls button').filter(function(d,i) { return i ==
+            0;}).text('Go!');
     console.log('Reset ponies');
 }
 
 var running = false;
+var done = false;
 
 var width = 900;
     height = 650;
@@ -194,9 +200,15 @@ controls.filter(function(d,i) { return i == 0; })
         // Only run ponies if there is at least one to run!
         if (ponies.length > 0)
         {
-            running = true;
-            console.log('SHOT!');
-            runPonies();
+            if (!running && !done) {
+                running = true;
+                console.log('SHOT!');
+                d3.selectAll('#controls button').filter(function(d,i) { return i == 0;}).text('Pause');
+                runPonies();
+            } else if (!done) {
+                running = false;
+                d3.selectAll('#controls button').filter(function(d,i) { return i == 0;}).text('Go!');
+            }
         }
         });
 
