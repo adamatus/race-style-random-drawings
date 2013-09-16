@@ -140,18 +140,37 @@ var addEntrant = function()
 }
 
 var removeEntrant = function(i) {
-    console.log('Need to remove entrant w/ uniqueEntrant index ' + i);
-    // TODO Remove jockey entries from entrants, progress, uniqueEntrants, cols
-    // TODO Remove jockeys rects and move remaining ponies/fix axis
+    // Remove jockeys ponies
+    var toRemove = [];
+
+    for (var j = 0; j < ponies.length; j++) {
+        if (ponies[j].jockey == jockeys[i].name) {
+            toRemove.push(j);
+        }
+    }
+
+    for (var j = toRemove.length-1; j > -1; j--)
+    {
+        ponies.splice(toRemove[j],1);
+    }
+
+    // Remove jockeys rects and move remaining ponies/fix axis
+    y.domain([0,ponies.length]);
+    var ponyList = d3.select('#data-region').selectAll('.pony')
+            .data(ponies);
+    ponyList.transition().duration(100)
+            .attr('y',function(d,i) { return y(i+.25); })
+            .style('fill',function(d) { return d.col;})
+            .attr('height',y(.50)-y(0));
+    ponyList.exit().remove();
 
     // Remove jockeys name from displayed list list
-    // TODO Fix so that colors are correct
-        // Need to include colors in data for jockeys
-    uniqueEntrants.splice(i,1);
-    var jockeys = d3.select('#jockey-list').selectAll('.jockey')
-            .data(uniqueEntrants)
-        .text(function(d) { return d; });
-    jockeys.exit().remove();
+    jockeys.splice(i,1);
+    var jockeyList = d3.select('#jockey-list').selectAll('.jockey')
+            .data(jockeys)
+        .text(function(d) { return d.name + ' (' + d.num + ')'; }) 
+        .style('color',function(d) { return d.col; })
+    jockeyList.exit().remove();
 }
 
 var resetPonies = function() {
