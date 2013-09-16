@@ -30,7 +30,9 @@
 
               <div id="controls">
                   <button class="first last active">Go!</button>
+                  <button class="first last active">Reset</button>
               </div>
+           
 
               <div id="chart">
               </div>
@@ -43,7 +45,6 @@
     // on hover
 // TODO Record 1st, 2nd, 3rd so multiple winners can be picked
     // Add option to run all the way to end, give full ranking list
-// TODO Add reset button to send ponies back to start
 // TODO Fix nameis conventions: ponies/horses, entrants/jockeys
 // TODO Completely refactor code so it looks like I planned out the
     // implementation rather than just hacking it together ;)
@@ -152,6 +153,17 @@ var removeEntrant = function(i) {
     jockeys.exit().remove();
 }
 
+var resetPonies = function() {
+    for (var i = 0; i < ponies.length; i++)
+    {
+        ponies[i].progress = 0;
+    }
+    d3.selectAll('.pony').data(ponies)
+        .transition().ease('linear').duration(250).attr('x',function(d) {
+                return x(d.progress); })
+    console.log('Reset ponies');
+}
+
 var running = false;
 
 var width = 900;
@@ -174,11 +186,23 @@ var svg = d3.select('#chart').append('svg:svg')
 var plot = svg.append('g').attr('id','plot').attr('transform','translate('+ml+','+mt+')');
 var dataRegion = plot.append('g').attr('id','data-region');
 
-d3.selectAll('#controls button')
-    .data(['Go !'])
+var controls = d3.selectAll('#controls button')
+    .data(['Go !','Reset']);
+
+controls.filter(function(d,i) { return i == 0; })
     .on('click',function(w) {
-        running = true;
-        runPonies();
+        // Only run ponies if there is at least one to run!
+        if (ponies.length > 0)
+        {
+            running = true;
+            console.log('SHOT!');
+            runPonies();
+        }
+        });
+
+controls.filter(function(d,i) { return i == 1; })
+    .on('click',function(w) {
+        resetPonies();
         });
 
 d3.selectAll('#inputs button')
