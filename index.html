@@ -59,21 +59,25 @@ var getRandomInt = function(min, max) {
     return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
-var nPonies = 0;
-var progress = [];
-var entrants = [];
-var uniqueEntrants = [];
-var cols = [];
+var ponies = [];
+var jockeys = [];
 
 var runPonies = function()
 {
     // TODO Add ability to pause
     if (running) {
-        if (Math.max.apply(Math,progress) < 90) {
-            var tmp = getRandomInt(0,nPonies-1);
-            progress[tmp] += 1
-            d3.selectAll('.pony').data(progress)
-                .transition().ease('linear').duration(50).attr('x',function(d) { return x(d); })
+        var maxProgress = -1;
+        for (var i = 0; i < ponies.length; i++) {
+            maxProgress = ponies[i].progress > maxProgress ? ponies[i].progress
+                : maxProgress;
+        }
+         
+        if (maxProgress < 90) {
+            var tmp = getRandomInt(0,ponies.length-1);
+            ponies[tmp].progress += 1
+            d3.selectAll('.pony').data(ponies)
+                .transition().ease('linear').duration(50).attr('x',function(d) {
+                        return x(d.progress); })
             setTimeout(runPonies,50);
         } else {
             // TODO Add nice winner pop-up
@@ -92,46 +96,39 @@ var addEntrant = function()
     if (name.length > 0 && !isNaN(+num))
     {
         for (var i = 0; i < +num; i++) {
-            progress.push(0);
-            entrants.push(name);
-            cols.push(col);
+            ponies.push({progress:0,jockey:name,col:col});
         }
-        uniqueEntrants.push(name);
-        nPonies = nPonies + +num;
-        ymax = nPonies;
-        y.domain([0,ymax]);
+        jockeys.push({name:name,num:num,col:col});
+        y.domain([0,ponies.length]);
 
         // Add entry to text list of jockeys
-        var jockeys = d3.select('#jockey-list').selectAll('.jockey')
-                .data(uniqueEntrants);
-        jockeys.enter()
+        var jockeyList = d3.select('#jockey-list').selectAll('.jockey')
+                .data(jockeys);
+        jockeyList.enter()
                 .append('p')
-                .text(function(d) { return d; }) // TODO Lookup # of ponies 
-                                     // per jockey and include it in parens
+                .text(function(d) { return d.name + ' (' + d.num + ')'; }) 
                 .classed('jockey',true)
-                .style('color',col)
+                .style('color',function(d) { return d.col; })
             .on('click',function(d,i) { removeEntrant(i); });
             
 
         // Update positions for existing ponies
-        var ponies = d3.select('#data-region').selectAll('.pony')
-                .data(progress);
-        ponies.transition().duration(100)
+        var ponyList = d3.select('#data-region').selectAll('.pony')
+                .data(ponies);
+        ponyList.transition().duration(100)
                 .attr('y',function(d,i) { return y(i+.25); })
                 .attr('height',y(.50)-y(0));
                 
         // Add new ponies
-        ponies.enter()
+        ponyList.enter()
                 .append('svg:rect')
                 .attr('height',y(.5)-y(0))
-                .attr('x',function(d) { return x(d); })
+                .attr('x',function(d) { return x(d.progress); })
                 .attr('width',x(10)-x(0))
                 .attr('y',function(d,i) { return y(i+.25); })
                 .style('stroke','none')
                 .classed('pony',true)
-                .style('fill',function(d,i) { return cols[i];});
-
-        ponies.exit().remove();
+                .style('fill',function(d) { return d.col;});
     
         console.log('Adding entrant ' + name + ' ' + num + ' times');
     } else {
@@ -161,7 +158,7 @@ var width = 900;
     height = 650;
 
 var xmax = 100,
-    ymax = nPonies+1;
+    ymax = 1;
 
 var margins = [80, 100, 100, 30], mb = margins[0], ml = margins[1], mt = margins[2], mr = margins[3];
 var w = width - (ml + mr),
