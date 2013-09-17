@@ -18,8 +18,8 @@
     <body>
         <h1>Pony Race!</h1>
               <div id="inputs">
-                  <input type="text" id="name">
-                  <input type="text" id="num">
+                  <input type="text" id="name" value="Adam">
+                  <input type="text" id="num" value="3">
                   <input id="color1" type="text" name="color1" value="#333399"
                   />
                   <button class="add">Add</button>
@@ -128,14 +128,27 @@ var addEntrant = function()
                 .style('color',function(d) { return d.col; })
             .on('click',function(d,i) { removeEntrant(i); });
 
-        // Update positions for existing ponies
-        var ponyList = d3.select('#data-region').selectAll('.pony')
-                .data(ponies);
-        ponyList.transition().duration(100)
-                .attr('y',function(d,i) { return y(i+.25); })
-                .attr('height',y(.50)-y(0));
+        // Add new lanes for ponies
+        var ponyLanes = d3.select('#data-region').selectAll('.pony-lane')
+            .data(ponies);
+        ponyLanes.enter()
+                .append('svg:rect')
+                .attr('height',y(.05)-y(0))
+                .attr('x',x(10))
+                .attr('width',x(90)-x(0))
+                .attr('y',function(d,i) { return y(i+.5-.025); })
+                .style('stroke','none')
+                .classed('pony-lane',true)
+                .style('fill',function(d) { return d.col;});
+
+        // Update positions for existing lanes
+        ponyLanes.transition().duration(100)
+                .attr('y',function(d,i) { return y(i+.5-.025); })
+                .attr('height',y(.050)-y(0));
                 
         // Add new ponies
+        var ponyList = d3.select('#data-region').selectAll('.pony')
+                .data(ponies);
         ponyList.enter()
                 .append('svg:rect')
                 .attr('height',y(.5)-y(0))
@@ -145,6 +158,11 @@ var addEntrant = function()
                 .style('stroke','none')
                 .classed('pony',true)
                 .style('fill',function(d) { return d.col;});
+
+        // Update positions for existing ponies
+        ponyList.transition().duration(100)
+                .attr('y',function(d,i) { return y(i+.25); })
+                .attr('height',y(.50)-y(0));
     
     } else {
         // TODO Should popup a warning message
@@ -207,7 +225,7 @@ var running = false;
 var done = false;
 
 var width = 900;
-    height = 650;
+    height = 550;
 
 var xmax = 100,
     ymax = 1;
