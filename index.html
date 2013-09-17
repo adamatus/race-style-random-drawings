@@ -63,21 +63,30 @@ var getRandomInt = function(min, max) {
 var ponies = [];
 var jockeys = [];
 
+var nextPlace = 1;
+
 var runPonies = function()
 {
     if (running) {
-        // Figure out which horse has gone the farthest, to make sure none are
-        // already at the finish!
-        var maxProgress = -1;
+        // Figure out which (if any) ponies haven't finished
+        var notFinished = [];
         for (var i = 0; i < ponies.length; i++) {
-            maxProgress = ponies[i].progress > maxProgress ? ponies[i].progress
-                : maxProgress;
+            if (ponies[i].progress < 90) { 
+                notFinished.push(i);
+            }
         }
          
-        if (maxProgress < 90) {
-            // Move a random pony forward
-            var tmp = getRandomInt(0,ponies.length-1);
-            ponies[tmp].progress += 1
+        // See if any of the ponies still need to finish
+        if (notFinished.length > 0) {
+            // Move a random (still running) pony forward and record if they
+            // made it to the end
+            var tmp = getRandomInt(0,notFinished.length-1);
+            ponies[notFinished[tmp]].progress += 1;
+            if (ponies[notFinished[tmp]].progress == 90)
+            {
+                ponies[notFinished[tmp]].finishPos = nextPlace++;
+            }
+
             d3.selectAll('.pony').data(ponies)
                 .transition().ease('linear').duration(50).attr('x',function(d) {
                         return x(d.progress); })
@@ -101,7 +110,10 @@ var addEntrant = function()
     {
         // Add the individual ponies and the jockey to the list
         for (var i = 0; i < +num; i++) {
-            ponies.push({progress:0,jockey:name,col:col});
+            ponies.push({progress:0,
+                    jockey:name,
+                    col:col,
+                    finishPos:0});
         }
         jockeys.push({name:name,num:num,col:col});
         y.domain([0,ponies.length]);
@@ -188,6 +200,7 @@ var resetPonies = function() {
                 return x(d.progress); })
     d3.selectAll('#controls button').filter(function(d,i) { return i ==
             0;}).text('Go!');
+    nextPlace = 1;
 }
 
 var running = false;
