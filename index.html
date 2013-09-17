@@ -40,12 +40,8 @@
         <script type="text/javascript">
 
 // TODO Move pony updating code to separate functions
-// TODO Add ability to remove participants
-    // Do this by having names list with X's next to them or strike-throughs
-    // on hover
 // TODO Record 1st, 2nd, 3rd so multiple winners can be picked
     // Add option to run all the way to end, give full ranking list
-// TODO Fix nameis conventions: ponies/horses, entrants/jockeys
 // TODO Completely refactor code so it looks like I planned out the
     // implementation rather than just hacking it together ;)
 // TODO Fix other TODO items below
@@ -132,7 +128,7 @@ var addEntrant = function()
                 .classed('pony',true)
                 .style('fill',function(d) { return d.col;});
     
-        console.log('Adding entrant ' + name + ' ' + num + ' times');
+        console.log('Adding jockey ' + name + ' ' + num + ' times');
     } else {
         console.log('Bad data, not adding anything');
         // TODO Should popup a warning message
