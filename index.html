@@ -60,10 +60,15 @@ var getRandomInt = function(min, max) {
     return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
+var getStepSize = function() {
+    return (90*ponies.length*50)/(raceLength*1000);
+}
+
 var ponies = [];
 var jockeys = [];
 
 var nextPlace = 1;
+var raceLength = 10; // Race length in seconds
 
 var runPonies = function()
 {
@@ -81,8 +86,8 @@ var runPonies = function()
             // Move a random (still running) pony forward and record if they
             // made it to the end
             var tmp = getRandomInt(0,notFinished.length-1);
-            ponies[notFinished[tmp]].progress += 1;
-            if (ponies[notFinished[tmp]].progress == 90)
+            ponies[notFinished[tmp]].progress += getStepSize();
+            if (ponies[notFinished[tmp]].progress >= 90)
             {
                 ponies[notFinished[tmp]].finishPos = nextPlace++;
             }
