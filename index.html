@@ -61,7 +61,7 @@ var getRandomInt = function(min, max) {
 }
 
 var getStepSize = function() {
-    return (90*ponies.length*50)/(raceLength*1000);
+    return (90*ponies.length*50)/(10*1000);
 }
 
 var ponies = [];
@@ -200,6 +200,14 @@ var removeEntrant = function(i) {
             .style('fill',function(d) { return d.col;})
             .attr('height',y(.50)-y(0));
     ponyList.exit().remove();
+
+    var ponyLanes = d3.select('#data-region').selectAll('.pony-lane')
+            .data(ponies);
+    ponyLanes.transition().duration(100)
+                .attr('height',y(.05)-y(0))
+                .style('fill',function(d) { return d.col;})
+                .attr('y',function(d,i) { return y(i+.5-.025); });
+    ponyLanes.exit().remove();
 
     // Remove jockeys name from displayed list list
     jockeys.splice(i,1);
