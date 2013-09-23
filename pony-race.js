@@ -65,6 +65,10 @@ var runPonies = function() {
     }
 };
 
+var clearWinners = function() {
+    d3.selectAll('.rank-entry').remove();
+};
+
 var addEntrant = function() {
     var name = $('#name').val(),
         num = $('#num').val(),
