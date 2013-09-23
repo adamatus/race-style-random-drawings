@@ -2,7 +2,6 @@
 // TODO What should we do about adding ponies in the middle of a race?
 // TODO Completely refactor code so it looks like I planned out the
     // implementation rather than just hacking it together ;)
-// TODO Fix other TODO items below
 // TODO Add a replay slider which will slide through the whole race
 // TODO Remove a color from picker once it has been used?
 // TODO Add this into an expanded options section which is hidden by default
@@ -72,24 +71,32 @@ var addEntrant = function() {
         col = $('#color1').val();
 
     if (name.length > 0 && !isNaN(+num)) {
-        // TODO Check to see if a jockey name exists, if so, don't allow it
+        // Check to see if a jockey name exists, if so, don't allow it
         // to be reused
-
-        // Add the individual ponies and the jockey to the list
-        for (var i = 0; i < +num; i++) {
-            ponies.push({progress:0,
-                    jockey:name,
-                    col:col,
-                    finishPos:0});
+        var previouslyUsed = false;
+        for (var i=0; i < jockeys.length; i++) {
+            previouslyUsed = name == jockeys[i].name ? true : false;
         }
+        if (previouslyUsed) {
+            window.alert('Sorry, you can not reuse a Jockey')
+        } else {
 
-        // Add the jockey to the jockies list
-        jockeys.push({name:name,num:num,col:col});
+            // Add the individual ponies and the jockey to the list
+            for (var i = 0; i < +num; i++) {
+                ponies.push({progress:0,
+                        jockey:name,
+                        col:col,
+                        finishPos:0});
+            }
 
-        updateJockeyLineup();
-        updatePonyLineup();
+            // Add the jockey to the jockies list
+            jockeys.push({name:name,num:num,col:col});
+
+            updateJockeyLineup();
+            updatePonyLineup();
+        }
     } else {
-        // TODO Should popup a warning message
+        window.alert('Please enter a unique jockey name and # of ponies for that jockey!')
     }
 };
 
