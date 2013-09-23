@@ -15,7 +15,7 @@ var getRandomInt = function(min, max) {
 }
 
 var getStepSize = function() {
-    return (90*ponies.length*50)/(10*1000);
+    return (90*ponies.length*50)/(raceLength*1000);
 }
 
 var runPonies = function()
@@ -41,8 +41,8 @@ var runPonies = function()
             }
 
             d3.selectAll('.pony').data(ponies)
-                .transition().ease('linear').duration(50).attr('x',function(d) {
-                        return x(d.progress); })
+                .transition().ease('linear').duration(50)
+                .attr('transform',function(d,i) { return 'translate('+x(d.progress)+',0)';})
             setTimeout(runPonies,50);
         } else {
             // TODO Add nice winner pop-up
@@ -111,14 +111,17 @@ var resetPonies = function() {
     {
         ponies[i].progress = 0;
     }
+
     done = false;
     running = false;
+    nextPlace = 1;
+
     d3.selectAll('.pony').data(ponies)
-        .transition().ease('linear').duration(250).attr('x',function(d) {
-                return x(d.progress); })
+        .transition().ease('linear').duration(250)
+        .attr('transform',function(d,i) { return 'translate('+x(d.progress)+',0)';})
+
     d3.selectAll('#controls button').filter(function(d,i) { return i ==
             0;}).text('Go!');
-    nextPlace = 1;
 }
 
 var updateJockeyLineup = function() {
@@ -142,48 +145,58 @@ var updatePonyLineup = function() {
     // Make sure y domain is correct
     y.domain([0,ponies.length]);
     
-    // Add new lanes for ponies
-    var ponyLanes = d3.select('#data-region').selectAll('.pony-lane')
-        .data(ponies);
+    var ponyGroup = d3.select('#data-region').selectAll('.pony-group')
+            .data(ponies);
+
+    // Update position for old ponies
+    ponyGroup.transition().duration(100)
+            .attr('transform',function(d,i) { return 'translate(0,'+y(i)+')';});
+
+    // Add new group for new ponies
+    var newPonyGroup = ponyGroup.enter()
+        .append('svg:g')
+        .attr('transform',function(d,i) { return 'translate(0,'+y(i)+')';})
+        .classed('pony-group',true);
     
     // Update positions for existing lanes
-    ponyLanes.transition().duration(100)
-            .attr('y',function(d,i) { return y(i+.5-.025); })
+    ponyGroup.select('.pony-lane') 
+        .transition().duration(100)
+            .attr('y',y(.25-.025))
             .style('fill',function(d) { return d.col;})
             .attr('height',y(.050)-y(0));
 
-    ponyLanes.enter()
-            .append('svg:rect')
+    // Add new lanes
+    newPonyGroup.append('svg:rect')
             .attr('height',y(.05)-y(0))
             .attr('x',x(10))
             .attr('width',x(90)-x(0))
-            .attr('y',function(d,i) { return y(i+.5-.025); })
+            .attr('y',y(.25-.025))
             .style('stroke','none')
             .classed('pony-lane',true)
             .style('fill',function(d) { return d.col;});
 
-    ponyLanes.exit().remove();
-
-    // Add new ponies
-    var ponyList = d3.select('#data-region').selectAll('.pony')
-            .data(ponies);
-    
     // Update positions for existing ponies
-    ponyList.transition().duration(100)
-            .attr('y',function(d,i) { return y(i+.25); })
+    ponyGroup.select('.pony').select('.race-pony')
+        .transition().duration(100)
             .style('fill',function(d) { return d.col;})
             .attr('height',y(.50)-y(0));
 
-    ponyList.enter()
-            .append('svg:rect')
+    // Add new pony groups
+    var racePonies = newPonyGroup.append('svg:g')
+            .classed('pony',true);
+
+    racePonies.append('svg:rect')
             .attr('height',y(.5)-y(0))
-            .attr('x',function(d) { return x(d.progress); })
             .attr('width',x(10)-x(0))
-            .attr('y',function(d,i) { return y(i+.25); })
             .style('stroke','none')
-            .classed('pony',true)
+            .classed('race-pony',true)
             .style('fill',function(d) { return d.col;});
 
-    ponyList.exit().remove();
+    //racePonies.append('svg:text')
+    //    .text(function(d) { console.log(d); return d.jockey[0]; })
+    //    .attr('x',0)
+    //    .attr('y',0);
+
+    ponyGroup.exit().remove();
 };
 
