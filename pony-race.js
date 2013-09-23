@@ -12,14 +12,13 @@
 
 var getRandomInt = function(min, max) {
     return Math.floor(Math.random() * (max - min + 1)) + min;
-}
+};
 
 var getStepSize = function() {
     return (90*ponies.length*50)/(raceLength*1000);
-}
+};
 
-var runPonies = function()
-{
+var runPonies = function() {
     if (running) {
         // Figure out which (if any) ponies haven't finished
         var notFinished = [];
@@ -40,6 +39,7 @@ var runPonies = function()
                 ponies[notFinished[tmp]].finishPos = nextPlace++;
             }
 
+            // Actually move the pony
             d3.selectAll('.pony').data(ponies)
                 .transition().ease('linear').duration(50)
                 .attr('transform',function(d,i) { return 'translate('+x(d.progress)+',0)';})
@@ -51,16 +51,14 @@ var runPonies = function()
             running = false;
         }
     }
-}
+};
 
-var addEntrant = function()
-{
+var addEntrant = function() {
     var name = $('#name').val(),
         num = $('#num').val(),
         col = $('#color1').val();
 
-    if (name.length > 0 && !isNaN(+num))
-    {
+    if (name.length > 0 && !isNaN(+num)) {
         // TODO Check to see if a jockey name exists, if so, don't allow it
         // to be reused
 
@@ -80,7 +78,7 @@ var addEntrant = function()
     } else {
         // TODO Should popup a warning message
     }
-}
+};
 
 var removeEntrant = function(i) {
     // Figure out which indexes we need to remove
@@ -103,12 +101,11 @@ var removeEntrant = function(i) {
     // Remove jockeys name from displayed list list
     jockeys.splice(i,1);
     updateJockeyLineup();
-}
+};
 
 var resetPonies = function() {
     // Send the ponies back to the beginning
-    for (var i = 0; i < ponies.length; i++)
-    {
+    for (var i = 0; i < ponies.length; i++) {
         ponies[i].progress = 0;
     }
 
@@ -122,7 +119,7 @@ var resetPonies = function() {
 
     d3.selectAll('#controls button').filter(function(d,i) { return i ==
             0;}).text('Go!');
-}
+};
 
 var updateJockeyLineup = function() {
     var jockeyList = d3.select('#jockey-list').selectAll('.jockey')
