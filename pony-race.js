@@ -1,4 +1,3 @@
-// TODO Move pony updating code to separate functions
 // TODO Record 1st, 2nd, 3rd so multiple winners can be picked
     // Add option to run all the way to end, give full ranking list
 // TODO What should we do about adding ponies in the middle of a race?
@@ -62,6 +61,9 @@ var addEntrant = function()
 
     if (name.length > 0 && !isNaN(+num))
     {
+        // TODO Check to see if a jockey name exists, if so, don't allow it
+        // to be reused
+
         // Add the individual ponies and the jockey to the list
         for (var i = 0; i < +num; i++) {
             ponies.push({progress:0,
@@ -69,62 +71,18 @@ var addEntrant = function()
                     col:col,
                     finishPos:0});
         }
+
+        // Add the jockey to the jockies list
         jockeys.push({name:name,num:num,col:col});
-        y.domain([0,ponies.length]);
 
-        // Add entry to text list of jockeys
-        var jockeyList = d3.select('#jockey-list').selectAll('.jockey')
-                .data(jockeys);
-        jockeyList.enter()
-                .append('p')
-                .text(function(d) { return d.name + ' (' + d.num + ')'; }) 
-                .classed('jockey',true)
-                .style('color',function(d) { return d.col; })
-            .on('click',function(d,i) { removeEntrant(i); });
-
-        // Add new lanes for ponies
-        var ponyLanes = d3.select('#data-region').selectAll('.pony-lane')
-            .data(ponies);
-        ponyLanes.enter()
-                .append('svg:rect')
-                .attr('height',y(.05)-y(0))
-                .attr('x',x(10))
-                .attr('width',x(90)-x(0))
-                .attr('y',function(d,i) { return y(i+.5-.025); })
-                .style('stroke','none')
-                .classed('pony-lane',true)
-                .style('fill',function(d) { return d.col;});
-
-        // Update positions for existing lanes
-        ponyLanes.transition().duration(100)
-                .attr('y',function(d,i) { return y(i+.5-.025); })
-                .attr('height',y(.050)-y(0));
-                
-        // Add new ponies
-        var ponyList = d3.select('#data-region').selectAll('.pony')
-                .data(ponies);
-        ponyList.enter()
-                .append('svg:rect')
-                .attr('height',y(.5)-y(0))
-                .attr('x',function(d) { return x(d.progress); })
-                .attr('width',x(10)-x(0))
-                .attr('y',function(d,i) { return y(i+.25); })
-                .style('stroke','none')
-                .classed('pony',true)
-                .style('fill',function(d) { return d.col;});
-
-        // Update positions for existing ponies
-        ponyList.transition().duration(100)
-                .attr('y',function(d,i) { return y(i+.25); })
-                .attr('height',y(.50)-y(0));
-    
+        updateJockeyLineup();
+        updatePonyLineup();
     } else {
         // TODO Should popup a warning message
     }
 }
 
 var removeEntrant = function(i) {
-
     // Figure out which indexes we need to remove
     var toRemove = [];
     for (var j = 0; j < ponies.length; j++) {
@@ -133,38 +91,18 @@ var removeEntrant = function(i) {
         }
     }
 
-    // Remove them in reverse order so we don't have to do anything fancy with
-    // indexes
-    for (var j = toRemove.length-1; j > -1; j--)
-    {
+    // Remove them in reverse order so we don't have 
+    // to do anything fancy with indexes
+    for (var j = toRemove.length-1; j > -1; j--) {
         ponies.splice(toRemove[j],1);
     }
 
     // Remove jockey's rects and move remaining ponies/fix y-scale 
-    y.domain([0,ponies.length]);
-    var ponyList = d3.select('#data-region').selectAll('.pony')
-            .data(ponies);
-    ponyList.transition().duration(100)
-            .attr('y',function(d,i) { return y(i+.25); })
-            .style('fill',function(d) { return d.col;})
-            .attr('height',y(.50)-y(0));
-    ponyList.exit().remove();
-
-    var ponyLanes = d3.select('#data-region').selectAll('.pony-lane')
-            .data(ponies);
-    ponyLanes.transition().duration(100)
-                .attr('height',y(.05)-y(0))
-                .style('fill',function(d) { return d.col;})
-                .attr('y',function(d,i) { return y(i+.5-.025); });
-    ponyLanes.exit().remove();
+    updatePonyLineup();
 
     // Remove jockeys name from displayed list list
     jockeys.splice(i,1);
-    var jockeyList = d3.select('#jockey-list').selectAll('.jockey')
-            .data(jockeys)
-        .text(function(d) { return d.name + ' (' + d.num + ')'; }) 
-        .style('color',function(d) { return d.col; })
-    jockeyList.exit().remove();
+    updateJockeyLineup();
 }
 
 var resetPonies = function() {
@@ -182,3 +120,70 @@ var resetPonies = function() {
             0;}).text('Go!');
     nextPlace = 1;
 }
+
+var updateJockeyLineup = function() {
+    var jockeyList = d3.select('#jockey-list').selectAll('.jockey')
+            .data(jockeys)
+        .text(function(d) { return d.name + ' (' + d.num + ')'; }) 
+        .style('color',function(d) { return d.col; })
+
+    jockeyList.enter()
+            .append('p')
+            .text(function(d) { return d.name + ' (' + d.num + ')'; }) 
+            .classed('jockey',true)
+            .style('color',function(d) { return d.col; })
+        .on('click',function(d,i) { removeEntrant(i); });
+
+    jockeyList.exit().remove();
+};
+
+
+var updatePonyLineup = function() {
+    // Make sure y domain is correct
+    y.domain([0,ponies.length]);
+    
+    // Add new lanes for ponies
+    var ponyLanes = d3.select('#data-region').selectAll('.pony-lane')
+        .data(ponies);
+    
+    // Update positions for existing lanes
+    ponyLanes.transition().duration(100)
+            .attr('y',function(d,i) { return y(i+.5-.025); })
+            .style('fill',function(d) { return d.col;})
+            .attr('height',y(.050)-y(0));
+
+    ponyLanes.enter()
+            .append('svg:rect')
+            .attr('height',y(.05)-y(0))
+            .attr('x',x(10))
+            .attr('width',x(90)-x(0))
+            .attr('y',function(d,i) { return y(i+.5-.025); })
+            .style('stroke','none')
+            .classed('pony-lane',true)
+            .style('fill',function(d) { return d.col;});
+
+    ponyLanes.exit().remove();
+
+    // Add new ponies
+    var ponyList = d3.select('#data-region').selectAll('.pony')
+            .data(ponies);
+    
+    // Update positions for existing ponies
+    ponyList.transition().duration(100)
+            .attr('y',function(d,i) { return y(i+.25); })
+            .style('fill',function(d) { return d.col;})
+            .attr('height',y(.50)-y(0));
+
+    ponyList.enter()
+            .append('svg:rect')
+            .attr('height',y(.5)-y(0))
+            .attr('x',function(d) { return x(d.progress); })
+            .attr('width',x(10)-x(0))
+            .attr('y',function(d,i) { return y(i+.25); })
+            .style('stroke','none')
+            .classed('pony',true)
+            .style('fill',function(d) { return d.col;});
+
+    ponyList.exit().remove();
+};
+

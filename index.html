@@ -5,16 +5,15 @@
         <link type="text/css" rel="stylesheet" href="charts.css">
         <link rel="stylesheet" href="libs/really-simple-color-picker/colorPicker.css" type="text/css" />
         <script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
-        <script language="javascript" type="text/javascript"
-            src="pony-race.js"></script>
-        <script language="javascript" type="text/javascript"
-            src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
-        <script language="javascript" type="text/javascript"
-                src="libs/really-simple-color-picker/jquery.colorPicker.min.js"/></script>
+        <script language="javascript" type="text/javascript" src="pony-race.js"></script>
+        <script language="javascript" type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+        <script language="javascript" type="text/javascript" src="libs/really-simple-color-picker/jquery.colorPicker.min.js"/></script>
         
         <style>
             .jockey:hover {
                 text-decoration: line-through;}
+
+            svg { background: green;}
         </style>
     </head>
     <body>
@@ -55,13 +54,13 @@ var raceLength = 10; // Race length in seconds
 var running = false;
 var done = false;
 
-var width = 900;
-    height = 550;
+var width = 700;
+    height = 250;
 
 var xmax = 100,
     ymax = 1;
 
-var margins = [80, 100, 100, 30], mb = margins[0], ml = margins[1], mt = margins[2], mr = margins[3];
+var margins = [10, 10, 10, 10], mb = margins[0], ml = margins[1], mt = margins[2], mr = margins[3];
 var w = width - (ml + mr),
     h = height - (mb + mt);
 var x = d3.scale.linear().range([0, w]).domain([0,xmax]);
