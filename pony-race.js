@@ -1,3 +1,4 @@
+// TODO Have ponies rock and follow a sinusoidal curve
 // TODO What should we do about adding ponies in the middle of a race?
 // TODO Completely refactor code so it looks like I planned out the
     // implementation rather than just hacking it together ;)
