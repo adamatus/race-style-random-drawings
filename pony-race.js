@@ -45,14 +45,12 @@ var runPonies = function() {
                 .attr('transform',function(d,i) { return 'translate('+x(d.progress)+',0)';})
             setTimeout(runPonies,50);
         } else {
-            // TODO Add nice winner pop-up
-            
             d3.select('#winner-list').selectAll('.rank-entry')
                .data(ponies,function(d) { return d.finishPos; })
               .enter()
                 .append('p')
                 .classed('rank-entry',true)
-                .text(function(d,i) { return d.jockey + ' ' + i + ' ' + d.finishPos;}) ;
+                .text(function(d,i) { return d.finishPos + ': ' + d.jockey;}) ;
 
            d3.selectAll('.rank-entry').sort(function(a,b) { return a.finishPos < b.finishPos ? -1 : 1; }).order(); 
                
@@ -134,6 +132,8 @@ var resetPonies = function() {
 
     d3.selectAll('#controls button').filter(function(d,i) { return i ==
             0;}).text('Go!');
+
+    d3.selectAll('.rank-entry').remove();
 };
 
 var updateJockeyLineup = function() {
