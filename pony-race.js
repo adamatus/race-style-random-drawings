@@ -1,5 +1,3 @@
-// TODO Record 1st, 2nd, 3rd so multiple winners can be picked
-    // Add option to run all the way to end, give full ranking list
 // TODO What should we do about adding ponies in the middle of a race?
 // TODO Completely refactor code so it looks like I planned out the
     // implementation rather than just hacking it together ;)
