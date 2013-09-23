@@ -47,6 +47,17 @@ var runPonies = function() {
             setTimeout(runPonies,50);
         } else {
             // TODO Add nice winner pop-up
+            
+            d3.select('#winner-list').selectAll('.rank-entry')
+               .data(ponies,function(d) { return d.finishPos; })
+              .enter()
+                .append('p')
+                .classed('rank-entry',true)
+                .text(function(d,i) { return d.jockey + ' ' + i + ' ' + d.finishPos;}) ;
+
+           d3.selectAll('.rank-entry').sort(function(a,b) { return a.finishPos < b.finishPos ? -1 : 1; }).order(); 
+               
+           
             d3.selectAll('#controls button').filter(function(d,i) { return i == 0;}).text('Done');
             done = true;
             running = false;
