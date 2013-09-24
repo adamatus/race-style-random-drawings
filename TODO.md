@@ -1,7 +1,6 @@
 Before Next Release
 ===================
 - Make things visually appealing
-- Figure out what to do about adding ponies in the middle of a race
 
 Short-Term Improvements
 =======================
