@@ -1,14 +1,3 @@
-// TODO Have ponies rock and follow a sinusoidal curve
-// TODO What should we do about adding ponies in the middle of a race?
-// TODO Completely refactor code so it looks like I planned out the
-    // implementation rather than just hacking it together ;)
-// TODO Add a replay slider which will slide through the whole race
-// TODO Remove a color from picker once it has been used?
-// TODO Add this into an expanded options section which is hidden by default
-    // TODO Add option to switch between rect/pony/bike
-    // TODO Add speed control/logic
-        // Faster/slower
-
 var getRandomInt = function(min, max) {
     return Math.floor(Math.random() * (max - min + 1)) + min;
 };
