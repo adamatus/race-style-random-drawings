@@ -10,36 +10,96 @@
         <script language="javascript" type="text/javascript" src="libs/really-simple-color-picker/jquery.colorPicker.min.js"/></script>
         
         <style>
-            .jockey:hover {
-                text-decoration: line-through;}
+.jockey:hover {
+    text-decoration: line-through;}
 
-            svg { background: green;}
+svg { background: green;}
+
+#left-col {
+    width: 200px;
+    float: left;
+}
+
+#right-col {
+    margin-left: 200px;
+    position: relative;
+    width: 700px;
+}
+
+.clear { 
+    clear: both;
+}
+
+#name {
+    width: 100px;
+}
+
+#num {
+    width: 20px;
+}
+
+#inputs-text {
+    width: 130px;
+    float: left;
+}
+
+div.colorPicker-picker {
+    margin-left: 130px;
+}
+
+#center-add-button {
+    text-align: center;
+}
+
+
+#winner-list {
+    position: absolute;
+    top: 25px;
+    left: 50%;
+    width: 650px;
+    height: 200px;
+    margin-left: -325px;
+    border: 1px black solid;
+    background-color: white;
+    display: none;
+    
+}
         </style>
     </head>
     <body>
         <h1>Pony Race!</h1>
-              <div id="inputs">
-                  <input type="text" id="name" value="Adam">
-                  <input type="text" id="num" value="3">
-                  <input id="color1" type="text" name="color1" value="#333399"
-                  />
-                  <button class="first last">Add</button>
-              </div>
-
+          <div id="container">
+            <div id="left-col">
               <div id="jockey-list">
+                  <h2>Jockeys</h2>
               </div>
-
+              <div id="inputs">
+                  <div id="inputs-text">
+                      <input type="text" id="name" value="Adam"/>
+                      <input type="text" id="num" value="3"/>
+                  </div>
+                  <input type="text" id="color1" value="#333399"/>
+                  <div class="clear"></div>
+                  <div id="center-add-button">
+                      <button class="first last" id="add-button">Add</button>
+                  </div>
               <div id="controls">
                   <button class="first last">Go!</button>
                   <button class="first last">Reset</button>
               </div>
-           
+              </div>
+            </div>
+            <div id="right-col">
 
               <div id="chart">
               </div>
+
               <div id="winner-list">
                   <a onClick="clearWinners()">Close</a>
               </div>
+            </div>
+            <div class="clear"></div>
+          </div>
 
         <script type="text/javascript">
 
