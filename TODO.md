@@ -10,6 +10,7 @@ Short-Term Improvements
 - Add this into an expanded options section which is hidden by default
     - Add option to switch between rect/pony/bike
     - Add speed control/logic
+    - Add R->L / L->R switch
 
 Long-Term Improvements
 ======================
