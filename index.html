@@ -163,8 +163,10 @@ controls.filter(function(d,i) { return i == 0; })
                 running = false;
                 d3.selectAll('#controls button').filter(function(d,i) { return i == 0;}).text('Go!');
             }
+        } else {
+            window.alert('You have to have at least one jockey racing!')
         }
-        });
+    });
 
 // Deal with 'Reset' button clicks
 controls.filter(function(d,i) { return i == 1; })
