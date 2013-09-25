@@ -44,18 +44,39 @@ svg {
 }
 
 #inputs-text {
-    width: 130px;
-    float: left;
+   width: 130px;
+   float: left;
 }
 
-div.colorPicker-picker {
-    margin-left: 130px;
+#color1 { 
+    display: inline;
 }
 
 #center-add-button {
+    display: inline;
+}
+
+#inputs-other {
+   margin-left: 130px;
+}
+
+#adv-options { 
+    margin-top: 10px;
+    margin-left: 10px;
+    margin-right: 10px;
+    padding-top: 10px;
+    border-top: 1px solid black;
     text-align: center;
 }
 
+#controls { 
+    margin-top: 10px;
+    margin-left: 10px;
+    margin-right: 10px;
+    padding-top: 10px;
+    border-top: 1px solid black;
+    text-align: center;
+}
 
 #winner-list {
     position: absolute;
@@ -83,15 +104,18 @@ div.colorPicker-picker {
                       <input type="text" id="name" value="Adam"/>
                       <input type="text" id="num" value="3"/>
                   </div>
-                  <input type="text" id="color1" value="#333399"/>
-                  <div class="clear"></div>
-                  <div id="center-add-button">
-                      <button class="first last" id="add-button">Add</button>
+                  <div id="inputs-other">
+                      <input type="text" id="color1" value="#333399"/>
+                      <span id="add-jockey">+</span>
                   </div>
+                  <div class="clear"></div>
+              </div>
+              <div id="adv-options">
+                  <span>+ Advanced options</span>
+              </div>
               <div id="controls">
                   <button class="first last">Go!</button>
                   <button class="first last">Reset</button>
-              </div>
               </div>
             </div>
             <div id="right-col">
