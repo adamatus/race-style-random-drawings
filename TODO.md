@@ -1,6 +1,9 @@
 Before Next Release
 ===================
 - Make things visually appealing
+- Make sure colorpicker has assigned a useable value in case user does not
+  change anything in color picker (currently defaulting to black even though
+  picker seems to show white)
 
 Short-Term Improvements
 =======================
