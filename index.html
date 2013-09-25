@@ -3,11 +3,11 @@
         <title>Carnival-style pony-race drawing</title>
         <link type="text/css" rel="stylesheet" href="button.css">
         <link type="text/css" rel="stylesheet" href="charts.css">
-        <link rel="stylesheet" href="libs/really-simple-color-picker/colorPicker.css" type="text/css" />
+        <link type="text/css" rel="stylesheet" href="libs/mcColorPicker.css">
         <script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
         <script language="javascript" type="text/javascript" src="pony-race.js"></script>
         <script language="javascript" type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
-        <script language="javascript" type="text/javascript" src="libs/really-simple-color-picker/jquery.colorPicker.min.js"/></script>
+        <script type="text/javascript" src="libs/mcColorPicker.js"></script>
         
         <style>
 .jockey:hover {
@@ -105,7 +105,7 @@ svg {
                       <input type="text" id="num" value="3"/>
                   </div>
                   <div id="inputs-other">
-                      <input type="text" id="color1" value="#333399"/>
+                      <input type="hidden" class="color" id="color1"/>
                       <span id="add-jockey">+</span>
                   </div>
                   <div class="clear"></div>
@@ -133,10 +133,6 @@ svg {
         <script type="text/javascript">
 
 // Add color selector to documents
-jQuery(document).ready(function($) {
-   $('#color1').colorPicker();
-})
-
 var ponies = [];
 var jockeys = [];
 
