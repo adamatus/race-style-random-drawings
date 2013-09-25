@@ -7,6 +7,8 @@ Before Next Release
 
 Short-Term Improvements
 =======================
+- Get a proper open-source color picker... menucool.com colorpicker works as
+  desired, but license will not work
 - Have ponies rock and follow a sinusoidal curve (like they do in the real
   carnival game)
 - Add mouseover pop-ups to describe horses
