@@ -137,19 +137,44 @@ var resetPonies = function() {
 };
 
 var updateJockeyLineup = function() {
+
+    // Select current jockey list
     var jockeyList = d3.select('#jockey-list').selectAll('.jockey')
-            .data(jockeys)
-        .text(function(d) { return d.name + ' (' + d.num + ')'; }) 
-        .style('color',function(d) { return d.col; })
+            .data(jockeys);
 
-    jockeyList.enter()
-            .append('p')
-            .text(function(d) { return d.name + ' (' + d.num + ')'; }) 
-            .classed('jockey',true)
-            .style('color',function(d) { return d.col; })
-        .on('click',function(d,i) { removeEntrant(i); });
-
+    // Remove old jockeys
     jockeyList.exit().remove();
+    
+    // Update entries for existing jockeys
+    jockeyList.select('.jockey-name').attr('value',function(d) { return d.name; })
+    jockeyList.select('.jockey-num').attr('value',function(d) { return d.num; })
+    jockeyList.select('.jockey-col').style('background-color',function(d) { return d.col; })
+
+    // Add new jockey entries
+    var newJockeyList = jockeyList.enter()
+            .append('div')
+            .classed('jockey',true);
+
+    newJockeyList.append('input')
+        .attr('type','text')
+        .attr('value',function(d) { return d.name; })
+        .classed('jockey-name',true);
+
+    newJockeyList.append('input')
+        .attr('type','text')
+        .attr('value',function(d) { return d.num; })
+        .classed('jockey-num',true);
+
+    newJockeyList.append('input')
+        .attr('type','text')
+        .style('background-color',function(d) { return d.col; })
+        .classed('jockey-col',true);
+
+    newJockeyList.append('span')
+        .text('-')
+        .classed('jockey-remove',true)
+        .on('click',function(d,i) {console.log('remove '+i); removeEntrant(i); });
+
 };
 
 
