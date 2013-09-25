@@ -94,6 +94,10 @@ svg {
 #add-jockey {
     cursor: pointer;
 }
+
+#adv-options-expand {
+    display: none;
+}
         </style>
     </head>
     <body>
@@ -115,7 +119,10 @@ svg {
                   <div class="clear"></div>
               </div>
               <div id="adv-options">
-                  <span>+ Advanced options</span>
+                  <span onclick="expandAdvOptions()" id="adv-options-title">+ Show Advanced Options</span>
+                  <div id="adv-options-expand">
+                      <span>Advanced options here</span>
+                  </div>
               </div>
               <div id="controls">
                   <button class="first last">Go!</button>
@@ -146,6 +153,7 @@ var raceLength = 10; // Race length in seconds
 var running = false;
 var done = false;
 var allowAdding = true;
+var advOptionsHidden = true;
 
 var width = 700;
     height = 350;
