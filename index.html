@@ -90,6 +90,10 @@ svg {
     display: none;
     
 }
+
+#add-jockey {
+    cursor: pointer;
+}
         </style>
     </head>
     <body>
@@ -106,7 +110,7 @@ svg {
                   </div>
                   <div id="inputs-other">
                       <input type="hidden" class="color" id="color1"/>
-                      <span id="add-jockey">+</span>
+                      <span id="add-jockey" onclick="addEntrant()">+</span>
                   </div>
                   <div class="clear"></div>
               </div>
@@ -195,15 +199,6 @@ controls.filter(function(d,i) { return i == 1; })
         document.getElementById('num').disabled = false;
         allowAdding = true;
         resetPonies();
-        });
-
-// Deal with add jockey button clicks
-d3.selectAll('#inputs button')
-    .data(['Add'])
-    .on('click',function(w) {
-            if (allowAdding) {
-                addEntrant();
-            }
         });
 
 // Add the start and finish lines

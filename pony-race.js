@@ -57,37 +57,39 @@ var clearWinners = function() {
 };
 
 var addEntrant = function() {
-    var name = $('#name').val(),
-        num = $('#num').val(),
-        col = $('#color1').val();
+    if (allowAdding) {
+        var name = $('#name').val(),
+            num = $('#num').val(),
+            col = $('#color1').val();
 
-    if (name.length > 0 && !isNaN(+num)) {
-        // Check to see if a jockey name exists, if so, don't allow it
-        // to be reused
-        var previouslyUsed = false;
-        for (var i=0; i < jockeys.length; i++) {
-            previouslyUsed = name == jockeys[i].name ? true : false;
-        }
-        if (previouslyUsed) {
-            window.alert('Sorry, you can not reuse a Jockey')
-        } else {
-
-            // Add the individual ponies and the jockey to the list
-            for (var i = 0; i < +num; i++) {
-                ponies.push({progress:0,
-                        jockey:name,
-                        col:col,
-                        finishPos:0});
+        if (name.length > 0 && !isNaN(+num)) {
+            // Check to see if a jockey name exists, if so, don't allow it
+            // to be reused
+            var previouslyUsed = false;
+            for (var i=0; i < jockeys.length; i++) {
+                previouslyUsed = name == jockeys[i].name ? true : false;
             }
+            if (previouslyUsed) {
+                window.alert('Sorry, you can not reuse a Jockey')
+            } else {
 
-            // Add the jockey to the jockies list
-            jockeys.push({name:name,num:num,col:col});
+                // Add the individual ponies and the jockey to the list
+                for (var i = 0; i < +num; i++) {
+                    ponies.push({progress:0,
+                            jockey:name,
+                            col:col,
+                            finishPos:0});
+                }
 
-            updateJockeyLineup();
-            updatePonyLineup();
+                // Add the jockey to the jockies list
+                jockeys.push({name:name,num:num,col:col});
+
+                updateJockeyLineup();
+                updatePonyLineup();
+            }
+        } else {
+            window.alert('Please enter a unique jockey name and # of ponies for that jockey!')
         }
-    } else {
-        window.alert('Please enter a unique jockey name and # of ponies for that jockey!')
     }
 };
 
