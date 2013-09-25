@@ -42,7 +42,7 @@ var runPonies = function() {
 
            d3.selectAll('.rank-entry').sort(function(a,b) { return a.finishPos < b.finishPos ? -1 : 1; }).order(); 
                
-           d3.select('#winner-list').style('display','block');
+           setTimeout(function() { d3.select('#winner-list').style('display','block'); }, 350);
            
             d3.selectAll('#controls button').filter(function(d,i) { return i == 0;}).text('Done');
             done = true;
