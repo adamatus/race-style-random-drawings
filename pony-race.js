@@ -171,7 +171,7 @@ var updatePonyLineup = function() {
     // Update positions for existing lanes
     ponyGroup.select('.pony-lane') 
         .transition().duration(100)
-            .attr('y',y(.25-.025))
+            .attr('y',y(.5-.025))
             .style('fill',function(d) { return d.col;})
             .attr('height',y(.050)-y(0));
 
@@ -180,7 +180,7 @@ var updatePonyLineup = function() {
             .attr('height',y(.05)-y(0))
             .attr('x',x(10))
             .attr('width',x(90)-x(0))
-            .attr('y',y(.25-.025))
+            .attr('y',y(.5-.025))
             .style('stroke','none')
             .classed('pony-lane',true)
             .style('fill',function(d) { return d.col;});
@@ -189,6 +189,7 @@ var updatePonyLineup = function() {
     ponyGroup.select('.pony').select('.race-pony')
         .transition().duration(100)
             .style('fill',function(d) { return d.col;})
+            .attr('y',y(.25))
             .attr('height',y(.50)-y(0));
 
     // Add new pony groups
@@ -196,6 +197,8 @@ var updatePonyLineup = function() {
             .classed('pony',true);
 
     racePonies.append('svg:rect')
+            .attr('y',y(.25))
+            .style('stroke','none')
             .attr('height',y(.5)-y(0))
             .attr('width',x(10)-x(0))
             .style('stroke','none')
