@@ -160,7 +160,7 @@ var raceLength = 10; // Race length in seconds
 
 var running = false;
 var done = false;
-var allowAdding = true;
+var allowChanging = true;
 var advOptionsHidden = true;
 
 var width = 700;
@@ -197,7 +197,7 @@ controls.filter(function(d,i) { return i == 0; })
                 d3.selectAll('#controls button').filter(function(d,i) { return i == 0;}).text('Pause');
                 document.getElementById('name').disabled = true;
                 document.getElementById('num').disabled = true;
-                allowAdding = false;
+                allowChanging = false;
                 runPonies();
             } else if (!done) {
                 running = false;
@@ -213,7 +213,7 @@ controls.filter(function(d,i) { return i == 1; })
     .on('click',function(w) {
         document.getElementById('name').disabled = false;
         document.getElementById('num').disabled = false;
-        allowAdding = true;
+        allowChanging = true;
         resetPonies();
         });
 

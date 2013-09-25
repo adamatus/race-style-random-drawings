@@ -57,7 +57,7 @@ var clearWinners = function() {
 };
 
 var addEntrant = function() {
-    if (allowAdding) {
+    if (allowChanging) {
         var name = $('#name').val(),
             num = $('#num').val(),
             col = $('#color1').val();
@@ -94,26 +94,28 @@ var addEntrant = function() {
 };
 
 var removeEntrant = function(i) {
-    // Figure out which indexes we need to remove
-    var toRemove = [];
-    for (var j = 0; j < ponies.length; j++) {
-        if (ponies[j].jockey == jockeys[i].name) {
-            toRemove.push(j);
+    if (allowChanging) {
+        // Figure out which indexes we need to remove
+        var toRemove = [];
+        for (var j = 0; j < ponies.length; j++) {
+            if (ponies[j].jockey == jockeys[i].name) {
+                toRemove.push(j);
+            }
         }
+
+        // Remove them in reverse order so we don't have 
+        // to do anything fancy with indexes
+        for (var j = toRemove.length-1; j > -1; j--) {
+            ponies.splice(toRemove[j],1);
+        }
+
+        // Remove jockey's rects and move remaining ponies/fix y-scale 
+        updatePonyLineup();
+
+        // Remove jockeys name from displayed list list
+        jockeys.splice(i,1);
+        updateJockeyLineup();
     }
-
-    // Remove them in reverse order so we don't have 
-    // to do anything fancy with indexes
-    for (var j = toRemove.length-1; j > -1; j--) {
-        ponies.splice(toRemove[j],1);
-    }
-
-    // Remove jockey's rects and move remaining ponies/fix y-scale 
-    updatePonyLineup();
-
-    // Remove jockeys name from displayed list list
-    jockeys.splice(i,1);
-    updateJockeyLineup();
 };
 
 var resetPonies = function() {
@@ -173,7 +175,7 @@ var updateJockeyLineup = function() {
     newJockeyList.append('span')
         .text('-')
         .classed('jockey-remove',true)
-        .on('click',function(d,i) {console.log('remove '+i); removeEntrant(i); });
+        .on('click',function(d,i) {removeEntrant(i); });
 
 };
 
