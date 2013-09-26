@@ -1,10 +1,20 @@
-pony-race-drawing
-=================
+Carnival-style Pony Race
+====
 
-Pick a drawing winner, carnival horse-race style.
+Need to pick a winner, but can't find a hat or pieces of scrap paper?  Have no
+fear! Enter the classic carnival-style pony race. Give each person a pony (or
+more than one) and set those ponies racing.  We don't have water guns to shoot
+or balls to roll, so your fate rests in the hands on a random number generator! 
 
-Dependencies 
-============
-Currently relies on MenuCool.com MenuCool Color Picker
+### Features
+
+* Unlimited number of jockeys
+* Each jockey can have a unique number of ponies
+* Don't like ponies? Race bikes or cars instead (upcoming feature)
+
+### Dependencies 
+
+Currently relies on [MenuCool.com MenuCool Color Picker]
 (http://www.menucool.com/color-picker) which does not have a clear license
-(obviously not OSS).  Download and put in libs/ for now.
+(obviously not OSS).  Download and put in libs/ for now. This will be replaced
+with a more license friendly color picker soon.
