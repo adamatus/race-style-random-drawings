@@ -212,19 +212,18 @@ var updatePonyLineup = function() {
     // Update positions for existing lanes
     ponyGroup.select('.pony-lane') 
         .transition().duration(100)
-            .attr('y',y(.5-.025))
-            .attr('height',y(.05)-y(0))
+            .attr('y',y(.5)-Math.min(y(.05)-y(0),height/100)/2)
+            .attr('height',Math.min(y(.05)-y(0),height/100))
             .attr('x',x(10))
             .attr('width',x(90)-x(0))
-            .style('fill',function(d) { return d.col;})
-            .attr('height',y(.050)-y(0));
+            .style('fill',function(d) { return d.col;});
 
     // Add new lanes
     newPonyGroup.append('svg:rect')
-            .attr('height',y(.05)-y(0))
+            .attr('y',y(.5)-Math.min(y(.05)-y(0),height/100)/2)
+            .attr('height',Math.min(y(.05)-y(0),height/100))
             .attr('x',x(10))
             .attr('width',x(90)-x(0))
-            .attr('y',y(.5-.025))
             .style('stroke','none')
             .classed('pony-lane',true)
             .style('fill',function(d) { return d.col;});
@@ -233,19 +232,18 @@ var updatePonyLineup = function() {
     ponyGroup.select('.pony').select('.race-pony')
         .transition().duration(100)
             .style('fill',function(d) { return d.col;})
-            .attr('height',y(.5)-y(0))
-            .attr('width',x(10)-x(0))
-            .attr('y',y(.25))
-            .attr('height',y(.50)-y(0));
+            .attr('y',y(.5)-Math.min(y(.5)-y(0),height/10)/2)
+            .attr('height',Math.min(y(.5)-y(0),height/10))
+            .attr('width',x(10)-x(0));
 
     // Add new pony groups
     var racePonies = newPonyGroup.append('svg:g')
             .classed('pony',true);
 
     racePonies.append('svg:rect')
-            .attr('y',y(.25))
             .style('stroke','none')
-            .attr('height',y(.5)-y(0))
+            .attr('y',y(.5)-Math.min(y(.5)-y(0),height/10)/2)
+            .attr('height',Math.min(y(.5)-y(0),height/10))
             .attr('width',x(10)-x(0))
             .style('stroke','none')
             .classed('race-pony',true)
