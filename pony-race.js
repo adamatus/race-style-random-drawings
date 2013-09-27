@@ -201,6 +201,9 @@ var updatePonyLineup = function() {
     ponyGroup.select('.pony-lane') 
         .transition().duration(100)
             .attr('y',y(.5-.025))
+            .attr('height',y(.05)-y(0))
+            .attr('x',x(10))
+            .attr('width',x(90)-x(0))
             .style('fill',function(d) { return d.col;})
             .attr('height',y(.050)-y(0));
 
@@ -218,6 +221,8 @@ var updatePonyLineup = function() {
     ponyGroup.select('.pony').select('.race-pony')
         .transition().duration(100)
             .style('fill',function(d) { return d.col;})
+            .attr('height',y(.5)-y(0))
+            .attr('width',x(10)-x(0))
             .attr('y',y(.25))
             .attr('height',y(.50)-y(0));
 

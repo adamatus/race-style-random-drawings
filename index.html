@@ -28,7 +28,6 @@ svg {
 #right-col {
     margin-left: 200px;
     position: relative;
-    width: 700px;
 }
 
 .clear { 
@@ -163,8 +162,8 @@ var done = false;
 var allowChanging = true;
 var advOptionsHidden = true;
 
-var width = 700;
-    height = 350;
+var width = $(window).width()-275;
+    height = $(window).height()-150;
 
 var xmax = 110,
     ymax = 1;
@@ -229,6 +228,29 @@ d3.select('#data-region').selectAll('.border-line')
         .attr('y2',y(ymax))
         .style('stroke','black')
         .style('stroke-dasharray','10,10');
+
+$(window).resize(function() {
+    // Add in limits at which points we don't get smaller than
+    width = $(window).width()-275;
+    height = $(window).height()-150;
+
+    w = width - (ml + mr);
+    h = height - (mb + mt);
+    x = d3.scale.linear().range([0, w]).domain([0,xmax]);
+    y = d3.scale.linear().range([0, h]).domain([0,ymax]);
+
+    d3.select('#chart').select('svg.chart')
+        .attr("width", width)
+        .attr("height", height);
+
+    d3.select('#data-region').selectAll('.border-line')
+        .attr('x1',function(d) { return x(d); })
+        .attr('x2',function(d) { return x(d); })
+        .attr('y1',y(0))
+        .attr('y2',y(ymax));
+
+    updatePonyLineup();
+});
         </script>
     </body>
 </html>
