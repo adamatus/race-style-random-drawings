@@ -92,6 +92,10 @@ var addEntrant = function() {
             $('#num').val('#');
             formDefaulter.add('name');
             formDefaulter.add('num');
+            $('#name').removeClass("edited-input");
+            $('#num').removeClass("edited-input");
+            $('#name').addClass("default-input");
+            $('#num').addClass("default-input");
         } else {
             window.alert('Please enter a unique jockey name and # of ponies for that jockey!')
         }

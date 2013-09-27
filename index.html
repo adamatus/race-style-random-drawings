@@ -98,6 +98,14 @@ svg {
     
 }
 
+.edited-input {
+    color: black;
+}
+
+.default-input {
+    color: #999;
+}
+
 #add-jockey {
     cursor: pointer;
 }
@@ -116,9 +124,11 @@ svg {
               </div>
               <div id="inputs">
                   <div id="inputs-text">
-                      <input type="text" id="name" class="jockey-name"
+                      <input type="text" id="name" class="jockey-name
+                      default-input"
                       value="Jockey"/>
-                      <input type="text" id="num" class="jockey-num" value="#"/>
+                      <input type="text" id="num" class="jockey-num
+                      default-input" value="#"/>
                   </div>
                   <div id="inputs-other">
                       <input type="hidden" class="color" id="color1"/>
@@ -168,12 +178,16 @@ var formDefaulter=function(){
         var clearBox=function(){
             if(!isEdited){
                 that.element.val("");
+                that.element.addClass("edited-input");
+                that.element.removeClass("default-input");
                 isEdited=true;
             }
         }
         var fillBox=function(){
             if(that.element.val()==""){
                 that.element.val(initialVal);
+                that.element.removeClass("edited-input");
+                that.element.addClass("default-input");
                 isEdited=false;
             }
         }
