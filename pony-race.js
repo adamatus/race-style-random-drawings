@@ -164,16 +164,19 @@ var updateJockeyLineup = function() {
 
     newJockeyList.append('input')
         .attr('type','text')
+        .attr('disabled','disabled')
         .attr('value',function(d) { return d.name; })
         .classed('jockey-name',true);
 
     newJockeyList.append('input')
         .attr('type','text')
+        .attr('disabled','disabled')
         .attr('value',function(d) { return d.num; })
         .classed('jockey-num',true);
 
     newJockeyList.append('input')
         .attr('type','text')
+        .attr('disabled','disabled')
         .style('background-color',function(d) { return d.col; })
         .classed('jockey-col',true);
 
