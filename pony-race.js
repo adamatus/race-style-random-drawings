@@ -87,6 +87,11 @@ var addEntrant = function() {
                 updateJockeyLineup();
                 updatePonyLineup();
             }
+
+            $('#name').val('Jockey');
+            $('#num').val('#');
+            formDefaulter.add('name');
+            formDefaulter.add('num');
         } else {
             window.alert('Please enter a unique jockey name and # of ponies for that jockey!')
         }

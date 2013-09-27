@@ -116,8 +116,9 @@ svg {
               </div>
               <div id="inputs">
                   <div id="inputs-text">
-                      <input type="text" id="name" class="jockey-name" value="Adam"/>
-                      <input type="text" id="num" class="jockey-num" value="3"/>
+                      <input type="text" id="name" class="jockey-name"
+                      value="Jockey"/>
+                      <input type="text" id="num" class="jockey-num" value="#"/>
                   </div>
                   <div id="inputs-other">
                       <input type="hidden" class="color" id="color1"/>
@@ -149,6 +150,48 @@ svg {
           </div>
 
         <script type="text/javascript">
+
+// Have default values in form disappear on focus
+// From http://stackoverflow.com/a/12876076
+var formDefaulter=function(){
+    //Class to hold each form element
+    var FormElement=function(element){
+        var that=this;
+        this.element=element;
+
+        var initialVal=this.element.val();
+        var isEdited=false;
+
+        this.element.focus(function(){clearBox()});
+        this.element.blur(function(){fillBox()});
+
+        var clearBox=function(){
+            if(!isEdited){
+                that.element.val("");
+                isEdited=true;
+            }
+        }
+        var fillBox=function(){
+            if(that.element.val()==""){
+                that.element.val(initialVal);
+                isEdited=false;
+            }
+        }
+    }
+
+    var add=function(elementId){
+        new FormElement($('#'+elementId));
+    }
+
+    return{
+        add:add
+    }
+}();
+
+$(function(){
+    formDefaulter.add('name');
+    formDefaulter.add('num');
+});
 
 // Add color selector to documents
 var ponies = [];
