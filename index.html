@@ -142,7 +142,8 @@ svg {
               <div id="adv-options">
                   <span onclick="expandAdvOptions()" id="adv-options-title">+ Show Advanced Options</span>
                   <div id="adv-options-expand">
-                      <span>Advanced options here</span>
+                      Speed: <input type="range" id="race-speed" name="race-speed" min="0" max="20"
+                      value="10" onChange="updateSpeed()">
                   </div>
               </div>
               <div id="controls">
@@ -208,6 +209,12 @@ $(function(){
     formDefaulter.add('name');
     formDefaulter.add('num');
 });
+
+var updateSpeed = function() {
+    raceLength = 21-$('#race-speed').val();
+    console.log(raceLength);
+}
+
 
 // Add color selector to documents
 var ponies = [];
