@@ -33,6 +33,7 @@ var runPonies = function() {
                 .attr('transform',function(d,i) { return 'translate('+x(d.progress)+',0)';})
             setTimeout(runPonies,50);
         } else {
+            d3.selectAll('.rank-entry').remove();
             d3.select('#winner-list').selectAll('.rank-entry')
                .data(ponies,function(d) { return d.finishPos; })
               .enter()
@@ -42,18 +43,19 @@ var runPonies = function() {
 
            d3.selectAll('.rank-entry').sort(function(a,b) { return a.finishPos < b.finishPos ? -1 : 1; }).order(); 
                
-           setTimeout(function() { d3.select('#winner-list').style('display','block'); }, 350);
+           // setTimeout(function() { d3.select('#winner-list').style('display','block'); }, 350);
+            $(function() {
+                $( "#winner-list" ).dialog({
+                  height: 200,
+                  modal: true
+                });
+              });
            
             d3.selectAll('#controls button').filter(function(d,i) { return i == 0;}).text('Done');
             done = true;
             running = false;
         }
     }
-};
-
-var clearWinners = function() {
-    d3.selectAll('.rank-entry').remove();
-    d3.select('#winner-list').style('display','none');
 };
 
 var addEntrant = function() {

@@ -4,9 +4,11 @@
         <link type="text/css" rel="stylesheet" href="button.css">
         <link type="text/css" rel="stylesheet" href="charts.css">
         <link type="text/css" rel="stylesheet" href="libs/mcColorPicker.css">
+        <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css">
         <script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
         <script language="javascript" type="text/javascript" src="pony-race.js"></script>
         <script language="javascript" type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+        <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
         <script type="text/javascript" src="libs/mcColorPicker.js"></script>
         
         <style>
@@ -86,15 +88,15 @@ svg {
 }
 
 #winner-list {
-    position: absolute;
-    top: 25px;
-    left: 50%;
-    width: 650px;
-    height: 200px;
-    margin-left: -325px;
-    border: 1px black solid;
-    background-color: white;
-    display: none;
+//    position: absolute;
+//    top: 25px;
+//    left: 50%;
+//    width: 650px;
+//    height: 200px;
+//    margin-left: -325px;
+//    border: 1px black solid;
+//    background-color: white;
+//    display: none;
     
 }
 
@@ -152,8 +154,7 @@ svg {
               <div id="chart">
               </div>
 
-              <div id="winner-list">
-                  <a onClick="clearWinners()">Close</a>
+              <div id="winner-list" title="Race Results">
               </div>
             </div>
             <div class="clear"></div>
