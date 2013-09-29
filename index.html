@@ -115,7 +115,7 @@ svg {
                       default-input" value="#"/>
                   </div>
                   <div id="inputs-other">
-                    <select name="colorpicker">
+                    <select name="colorpicker" id="colorpicker">
                       <!-- Colors from ColorBrewer2.org  -->
                       <option value="#1F78B4">Blue</option>
                       <option value="#33A02C">Green</option>
@@ -156,16 +156,41 @@ svg {
           </div>
 
         <script type="text/javascript">
+var colorList = [{value:"#1F78B4", name:'Blue', active:1},
+                {value:"#33A02C", name:'Green', active:1},
+                {value:"#E31A1C", name:'Red', active:1},
+                {value:"#FF7F00", name:'Orange', active:1},
+                {value:"#6A3D9A", name:'Purple', active:1},
+                {value:"#A6CEE3", name:'Light Blue', active:1},
+                {value:"#B2DF8A", name:'Light Green', active:1},
+                {value:"#FB9A99", name:'Light Red', active:1},
+                {value:"#FDBF6F", name:'Light Orange', active:1},
+                {value:"#CAB2D6", name:'Light Purple', active:1}];
 
-// Add the color picker
-$('select[name="colorpicker"]').simplecolorpicker();
-$('select[name="colorpicker"]').simplecolorpicker('selectColor',
-        '#1F78B4');
-$('select[name="colorpicker"]').simplecolorpicker('destroy');
 
-$('select[name="colorpicker"]').simplecolorpicker({
-  picker: true
-});
+var updatePicker = function() {
+    // Add the color picker
+    $('select[name="colorpicker"]').empty();
+    var firstCol = '';
+    for (var i = 0; i < colorList.length; i++) {
+        if (colorList[i].active) {
+            if (firstCol == '') {
+                firstCol = colorList[i].value;
+            }
+            var option = $('<option></option')
+                    .attr("value",colorList[i].value)
+                    .text(colorList[i].name);
+            $('select[name="colorpicker"]').append(option);
+        }
+    }
+
+    $('select[name="colorpicker"]').simplecolorpicker();
+    $('select[name="colorpicker"]').simplecolorpicker('selectColor',firstCol);
+    $('select[name="colorpicker"]').simplecolorpicker('destroy');
+    $('select[name="colorpicker"]').simplecolorpicker({picker: true});
+};
+
+updatePicker();
 
 // Have default values in form disappear on focus
 // From http://stackoverflow.com/a/12876076

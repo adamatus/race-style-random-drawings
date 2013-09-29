@@ -7,7 +7,6 @@ Short-Term Improvements
 - Have ponies rock and follow a sinusoidal curve (like they do in the real
   carnival game)
 - Add mouseover pop-ups to describe horses
-- Remove a color from picker once it has been used?
 - Add this into an expanded options section which is hidden by default
     - Add option to switch between rect/pony/bike
     - Add speed control/logic

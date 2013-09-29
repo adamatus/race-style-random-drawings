@@ -88,16 +88,25 @@ var addEntrant = function() {
 
                 updateJockeyLineup();
                 updatePonyLineup();
-            }
+                
+                // Remove the color from the color picker 
+                for (var i = 0; i < colorList.length; i++) {
+                    if (col == colorList[i].value) {
+                        colorList[i].active = 0;
+                    }
+                }
+                updatePicker();
 
-            $('#name').val('Jockey');
-            $('#num').val('#');
-            formDefaulter.add('name');
-            formDefaulter.add('num');
-            $('#name').removeClass("edited-input");
-            $('#num').removeClass("edited-input");
-            $('#name').addClass("default-input");
-            $('#num').addClass("default-input");
+                // Clear input boxes and reset the default names
+                $('#name').val('Jockey');
+                $('#num').val('#');
+                formDefaulter.add('name');
+                formDefaulter.add('num');
+                $('#name').removeClass("edited-input");
+                $('#num').removeClass("edited-input");
+                $('#name').addClass("default-input");
+                $('#num').addClass("default-input");
+            }
         } else {
             window.alert('Please enter a unique jockey name and # of ponies for that jockey!')
         }
@@ -113,6 +122,7 @@ var removeEntrant = function(i) {
                 toRemove.push(j);
             }
         }
+       
 
         // Remove them in reverse order so we don't have 
         // to do anything fancy with indexes
@@ -122,6 +132,14 @@ var removeEntrant = function(i) {
 
         // Remove jockey's rects and move remaining ponies/fix y-scale 
         updatePonyLineup();
+       
+        // Add the jockeys color back to picker 
+        for (var j = 0; j < colorList.length; j++) {
+            if (jockeys[i].col == colorList[j].value) {
+                colorList[j].active = 1;
+            }
+        }
+        updatePicker();
 
         // Remove jockeys name from displayed list list
         jockeys.splice(i,1);
