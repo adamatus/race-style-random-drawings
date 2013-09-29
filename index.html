@@ -132,19 +132,17 @@ svg {
                   </div>
                   <div id="inputs-other">
                     <select name="colorpicker">
-                      <!-- Colors from Google Calendar -->
-                      <option value="#7bd148">Green</option>
-                      <option value="#5484ed">Bold blue</option>
-                      <option value="#a4bdfc">Blue</option>
-                      <option value="#46d6db">Turquoise</option>
-                      <option value="#7ae7bf">Light green</option>
-                      <option value="#51b749">Bold green</option>
-                      <option value="#fbd75b">Yellow</option>
-                      <option value="#ffb878">Orange</option>
-                      <option value="#ff887c">Red</option>
-                      <option value="#dc2127">Bold red</option>
-                      <option value="#dbadff">Purple</option>
-                      <option value="#e1e1e1">Gray</option>
+                      <!-- Colors from ColorBrewer2.org  -->
+                      <option value="#1F78B4">Blue</option>
+                      <option value="#33A02C">Green</option>
+                      <option value="#E31A1C">Red</option>
+                      <option value="#FF7F00">Orange</option>
+                      <option value="#6A3D9A">Purple</option>
+                      <option value="#A6CEE3">Light Blue</option>
+                      <option value="#B2DF8A">Light Green</option>
+                      <option value="#FB9A99">Light Red</option>
+                      <option value="#FDBF6F">Light Orange</option>
+                      <option value="#CAB2D6">Light Purple</option>
                     </select>
                       <span id="add-jockey" onclick="addEntrant()">+</span>
                   </div>
@@ -178,7 +176,7 @@ svg {
 // Add the color picker
 $('select[name="colorpicker"]').simplecolorpicker();
 $('select[name="colorpicker"]').simplecolorpicker('selectColor',
-        '#7bd148');
+        '#1F78B4');
 $('select[name="colorpicker"]').simplecolorpicker('destroy');
 
 $('select[name="colorpicker"]').simplecolorpicker({
