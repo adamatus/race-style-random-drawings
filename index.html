@@ -34,24 +34,25 @@ svg {
     clear: both;
 }
 
-#name {
-    width: 100px;
-}
-
 .jockey-name {
-    width: 100px;
+    display: inline;
+    width: 120px;
+    margin-right: 2px;
 }
 
 .jockey-num {
-    width: 20px;
+    display: inline;
+    width: 30px;
+    margin-right: 2px;
+    margin-left: 4px;
 }
 
 .jockey-col {
-    width: 20px;
+    margin-left: 4px;
 }
 
-#inputs-text {
-   width: 130px;
+.inputs-text {
+   width: 200px;
    float: left;
 }
 
@@ -61,6 +62,7 @@ svg {
 
 #inputs-other {
    margin-left: 130px;
+   padding-top: 1px;
 }
 
 #adv-options { 
@@ -91,6 +93,10 @@ svg {
 
 #add-jockey,
 .jockey-remove {
+    padding-left: 4px;
+    width: 10px;
+    text-align: center;
+    display: inline;
     cursor: pointer;
 }
 
@@ -103,18 +109,17 @@ svg {
         <h1>Pony Race!</h1>
           <div id="container">
             <div id="left-col">
-              <div id="jockey-list">
+              <div id="jockey-list-cont">
                   <h2>Jockeys</h2>
+                  <div class="inputs-text" id="jockey-list">
+                  </div>
               </div>
               <div id="inputs">
-                  <div id="inputs-text">
+                  <div class="inputs-text">
                       <input type="text" id="name" class="jockey-name
                       default-input"
-                      value="Jockey"/>
-                      <input type="text" id="num" class="jockey-num
+                      value="Jockey"/><input type="text" id="num" class="jockey-num
                       default-input" value="#"/>
-                  </div>
-                  <div id="inputs-other">
                     <select name="colorpicker" id="colorpicker">
                       <!-- Colors from ColorBrewer2.org  -->
                       <option value="#1F78B4">Blue</option>
@@ -127,8 +132,7 @@ svg {
                       <option value="#FB9A99">Light Red</option>
                       <option value="#FDBF6F">Light Orange</option>
                       <option value="#CAB2D6">Light Purple</option>
-                    </select>
-                      <span id="add-jockey" onclick="addEntrant()">+</span>
+                    </select><span id="add-jockey" onclick="addEntrant()">+</span>
                   </div>
                   <div class="clear"></div>
               </div>

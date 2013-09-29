@@ -198,14 +198,15 @@ var updateJockeyLineup = function() {
         .attr('value',function(d) { return d.num; })
         .classed('jockey-num',true);
 
-    newJockeyList.append('input')
-        .attr('type','text')
-        .attr('disabled','disabled')
+    newJockeyList.append('span')
+        .text('\u00A0\u00A0\u00A0\u00A0')
         .style('background-color',function(d) { return d.col; })
+        .classed('simplecolorpicker',true)
+        .classed('icon',true)
         .classed('jockey-col',true);
 
     newJockeyList.append('span')
-        .text('-')
+        .text('\u2012')
         .classed('jockey-remove',true)
         .on('click',function(d,i) {removeEntrant(i); });
 
