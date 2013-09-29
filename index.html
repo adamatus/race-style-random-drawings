@@ -3,13 +3,14 @@
         <title>Carnival-style pony-race drawing</title>
         <link type="text/css" rel="stylesheet" href="button.css">
         <link type="text/css" rel="stylesheet" href="charts.css">
-        <link type="text/css" rel="stylesheet" href="libs/mcColorPicker.css">
+        <link rel="stylesheet" type="text/css" href="libs/jquery-simplecolorpicker/jquery.simplecolorpicker.css"/>
         <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css">
+
         <script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
         <script language="javascript" type="text/javascript" src="pony-race.js"></script>
         <script language="javascript" type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
         <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
-        <script type="text/javascript" src="libs/mcColorPicker.js"></script>
+        <script language="javascript" type ="text/javascript" src="libs/jquery-simplecolorpicker/jquery.simplecolorpicker.js"></script>
         
         <style>
 .jockey:hover {
@@ -55,10 +56,6 @@ svg {
 #inputs-text {
    width: 130px;
    float: left;
-}
-
-#color1 { 
-    display: inline;
 }
 
 #center-add-button {
@@ -134,7 +131,21 @@ svg {
                       default-input" value="#"/>
                   </div>
                   <div id="inputs-other">
-                      <input type="hidden" class="color" id="color1"/>
+                    <select name="colorpicker">
+                      <!-- Colors from Google Calendar -->
+                      <option value="#7bd148">Green</option>
+                      <option value="#5484ed">Bold blue</option>
+                      <option value="#a4bdfc">Blue</option>
+                      <option value="#46d6db">Turquoise</option>
+                      <option value="#7ae7bf">Light green</option>
+                      <option value="#51b749">Bold green</option>
+                      <option value="#fbd75b">Yellow</option>
+                      <option value="#ffb878">Orange</option>
+                      <option value="#ff887c">Red</option>
+                      <option value="#dc2127">Bold red</option>
+                      <option value="#dbadff">Purple</option>
+                      <option value="#e1e1e1">Gray</option>
+                    </select>
                       <span id="add-jockey" onclick="addEntrant()">+</span>
                   </div>
                   <div class="clear"></div>
@@ -163,6 +174,16 @@ svg {
           </div>
 
         <script type="text/javascript">
+
+// Add the color picker
+$('select[name="colorpicker"]').simplecolorpicker();
+$('select[name="colorpicker"]').simplecolorpicker('selectColor',
+        '#7bd148');
+$('select[name="colorpicker"]').simplecolorpicker('destroy');
+
+$('select[name="colorpicker"]').simplecolorpicker({
+  picker: true
+});
 
 // Have default values in form disappear on focus
 // From http://stackoverflow.com/a/12876076
@@ -216,7 +237,6 @@ var updateSpeed = function() {
 }
 
 
-// Add color selector to documents
 var ponies = [];
 var jockeys = [];
 

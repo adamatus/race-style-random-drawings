@@ -62,7 +62,7 @@ var addEntrant = function() {
     if (allowChanging) {
         var name = $('#name').val(),
             num = $('#num').val(),
-            col = $('#color1').val();
+            col = $('select[name="colorpicker"]').val();
 
         if (name.length > 0 && !isNaN(+num)) {
             // Check to see if a jockey name exists, if so, don't allow it
