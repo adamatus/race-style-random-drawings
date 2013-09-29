@@ -1,6 +1,5 @@
 Before Next Release
 ===================
-- Make things visually appealing
 
 Short-Term Improvements
 =======================
@@ -9,7 +8,6 @@ Short-Term Improvements
 - Add mouseover pop-ups to describe horses
 - Add this into an expanded options section which is hidden by default
     - Add option to switch between rect/pony/bike
-    - Add speed control/logic
     - Add ability to randomize pony order
     - Add R->L / L->R switch
 
