@@ -5,6 +5,7 @@
         <link type="text/css" rel="stylesheet" href="charts.css">
         <link rel="stylesheet" type="text/css" href="libs/jquery-simplecolorpicker/jquery.simplecolorpicker.css"/>
         <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css">
+        <link href='http://fonts.googleapis.com/css?family=Kite+One' rel='stylesheet' type='text/css'>
 
         <script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
         <script language="javascript" type="text/javascript" src="pony-race.js"></script>
@@ -19,6 +20,20 @@ svg {
     border-radius: 30px;
     box-shadow: 5px 5px 10px #999999;
 }
+
+h1 { text-align: center; }
+
+h2 {
+    font-family: 'Kite One', sans-serif;
+    font-size: 1.25em;
+    margin-top: .3em;
+    margin-bottom: .3em;
+}
+
+
+body, p, span, input,button { font-family: 'Kite One'; }
+
+span { font-size: .9em; }
 
 #left-col {
     width: 200px;
@@ -139,7 +154,7 @@ svg {
               <div id="adv-options">
                   <span onclick="expandAdvOptions()" id="adv-options-title">+ Show Advanced Options</span>
                   <div id="adv-options-expand">
-                      Speed: <input type="range" id="race-speed" name="race-speed" min="0" max="20"
+                      <span>Speed:</span><input type="range" id="race-speed" name="race-speed" min="0" max="20"
                       value="10" onChange="updateSpeed()">
                   </div>
               </div>
