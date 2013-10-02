@@ -28,7 +28,7 @@ var runPonies = function() {
             }
 
             // Actually move the pony
-            d3.selectAll('.pony').data(ponies)
+            d3.selectAll('.pony').data(ponies,function(d) { return d.jockey + d.num; })
                 .transition().ease('linear').duration(50)
                 .attr('transform',function(d,i) { return 'translate('+x(d.progress)+',0)';})
             setTimeout(runPonies,50);
@@ -79,6 +79,7 @@ var addEntrant = function() {
                 for (var i = 0; i < +num; i++) {
                     ponies.push({progress:0,
                             jockey:name,
+                            num:i,
                             col:col,
                             finishPos:0});
                 }
@@ -157,7 +158,7 @@ var resetPonies = function() {
     running = false;
     nextPlace = 1;
 
-    d3.selectAll('.pony').data(ponies)
+    d3.selectAll('.pony').data(ponies,function(d) { return d.jockey + d.num; })
         .transition().ease('linear').duration(250)
         .attr('transform',function(d,i) { return 'translate('+x(d.progress)+',0)';})
 
@@ -259,7 +260,7 @@ var updatePonyLineup = function() {
     y.domain([0,ponies.length]);
     
     var ponyGroup = d3.select('#data-region').selectAll('.pony-group')
-            .data(ponies);
+            .data(ponies,function(d) {return d.jockey + d.num; });
 
     // Update position for old ponies
     ponyGroup.transition().duration(100)
