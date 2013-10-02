@@ -167,6 +167,47 @@ var resetPonies = function() {
     d3.selectAll('.rank-entry').remove();
 };
 
+var randomizePonies = function() {
+    if (random) {
+        // Sort ponies
+        neworder = [];
+        for (var i=0; i < jockeys.length; i++) {
+            for (var j=0; j < ponies.length; j++) {
+                if (jockeys[i].name == ponies[j].jockey) {
+                    neworder.push(j);
+                }
+            }
+        }
+        console.log(neworder);
+        oldponies = ponies;
+        for (var j=0; j < ponies.length; j++) {
+            ponies[j] = oldponies[neworder[j]];
+        }
+        random = false;
+    } else {
+        // Shuffle the ponies, using code from here: http://stackoverflow.com/a/2450976
+        var currentIndex = ponies.length
+            , temporaryValue
+            , randomIndex
+            ;
+
+         // While there remain elements to shuffle...
+         while (0 !== currentIndex) {
+
+            // Pick a remaining element...
+            randomIndex = Math.floor(Math.random() * currentIndex);
+            currentIndex -= 1;
+
+            // And swap it with the current element.
+            temporaryValue = ponies[currentIndex];
+            ponies[currentIndex] = ponies[randomIndex];
+            ponies[randomIndex] = temporaryValue;
+        }
+        random = true;
+    }
+    updatePonyLineup();
+};
+
 var updateJockeyLineup = function() {
 
     // Select current jockey list
