@@ -170,7 +170,7 @@ var resetPonies = function() {
 
 var randomizePonies = function() {
     if (random) {
-        // Sort ponies
+        // Sort ponies back to jockey order
         neworder = [];
         for (var i=0; i < jockeys.length; i++) {
             for (var j=0; j < ponies.length; j++) {
@@ -179,12 +179,12 @@ var randomizePonies = function() {
                 }
             }
         }
-        console.log(neworder);
-        oldponies = ponies;
+        newponies = []
         for (var j=0; j < ponies.length; j++) {
-            ponies[j] = oldponies[neworder[j]];
+            newponies.push(ponies[neworder[j]]);
         }
         random = false;
+        ponies = newponies;
     } else {
         // Shuffle the ponies, using code from here: http://stackoverflow.com/a/2450976
         var currentIndex = ponies.length
