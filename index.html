@@ -175,6 +175,16 @@ span { font-size: .9em; }
           </div>
 
         <script type="text/javascript">
+var processEnter = function(e) {
+    if (e.which == 13) {
+        addEntrant();
+        e.preventDefault();
+    }
+}
+
+$('input[id=num]').on('keypress',function(e) { return processEnter(e); });
+$('input[id=name]').on('keypress',function(e) { return processEnter(e) });
+
 var colorList = [{value:"#1F78B4", name:'Blue', active:1},
                 {value:"#33A02C", name:'Green', active:1},
                 {value:"#E31A1C", name:'Red', active:1},
