@@ -299,14 +299,13 @@ var advOptionsHidden = true;
 var width = $(window).width()-275;
     height = $(window).height()-150;
 
-var xmax = 110,
-    ymax = 1;
+var xmax = 110;
 
 var margins = [50, 30, 50, 10], mb = margins[0], ml = margins[1], mt = margins[2], mr = margins[3];
 var w = width - (ml + mr),
     h = height - (mb + mt);
 var x = d3.scale.linear().range([0, w]).domain([0,xmax]);
-var y = d3.scale.linear().range([0, h]).domain([0,ymax]);
+var y = d3.scale.linear().range([0, h]).domain([0,1]);
 
 // Add chart SVG
 var svg = d3.select('#chart').append('svg:svg')
@@ -359,7 +358,7 @@ d3.select('#data-region').selectAll('.border-line')
         .attr('x1',function(d) { return x(d); })
         .attr('x2',function(d) { return x(d); })
         .attr('y1',y(0))
-        .attr('y2',y(ymax))
+        .attr('y2',y(1))
         .style('stroke','black')
         .style('stroke-dasharray','10,10');
 
@@ -371,7 +370,8 @@ $(window).resize(function() {
     w = width - (ml + mr);
     h = height - (mb + mt);
     x = d3.scale.linear().range([0, w]).domain([0,xmax]);
-    y = d3.scale.linear().range([0, h]).domain([0,ymax]);
+    y = d3.scale.linear().range([0, h]).domain([0,ponies.length > 0 ?
+        ponies.length : 1]);
 
     d3.select('#chart').select('svg.chart')
         .attr("width", width)
@@ -381,7 +381,7 @@ $(window).resize(function() {
         .attr('x1',function(d) { return x(d); })
         .attr('x2',function(d) { return x(d); })
         .attr('y1',y(0))
-        .attr('y2',y(ymax));
+        .attr('y2',y(ponies.length > 0 ? ponies.length : 1));
 
     updatePonyLineup();
 });
