@@ -158,11 +158,22 @@ span { font-size: .9em; }
                   <div id="adv-options-expand">
                       <span>Speed:</span><input type="range" id="race-speed" name="race-speed" min="0" max="20"
                       value="10" onChange="updateSpeed()">
-                      <select id='randomize-toggle' class='ui-toggle-switch'
-                          onChange="randomizePonies(this.value)">
-                          <option>Sorted</option>
-                          <option>Random</option>
-                      </select>
+                      <div id='race-dir-toggle-containter'>
+                          <select id='race-dir-toggle' class='ui-toggle-switch
+                              race-dir-toggle'>
+                              <option>Left</option>
+                              <option>Right</option>
+                          </select>
+                      </div>
+
+                      <div id='randomizee-toggle-containter'>
+                          <select id='randomize-toggle' class='ui-toggle-switch
+                              randomize-toggle'>
+                              <option>Sorted</option>
+                              <option>Random</option>
+                          </select>
+                      </div>
+
                   </div>
               </div>
               <div id="controls">
@@ -183,9 +194,26 @@ span { font-size: .9em; }
 
         <script type="text/javascript">
 
-$("#randomize-toggle").toggleSwitch({
-            highlight: false
-        });
+
+var updateStartDir = function(which) {
+    if (which === "Left") {
+//        x = d3.scale.linear().range([0, w]).domain([0,xmax]);
+        d3.select('#plot').transition().duration(1000).attr('transform','translate('+ml+','+mt+') scale(1,1)');
+    } else {
+        d3.select('#plot').transition().duration(1000).attr('transform','translate('+(w+ml)+','+mt+') scale(-1,1)');
+//        x = d3.scale.linear().range([w, 0]).domain([0,xmax]);
+    }
+
+//    d3.select('#data-region').selectAll('.border-line')
+//        .transition().duration(1250)
+//        .attr('x1',function(d) { return x(d); })
+//        .attr('x2',function(d) { return x(d); })
+//        .attr('y1',y(0))
+//        .attr('y2',y(ponies.length));
+
+//    updatePonyLineup();
+}
+
 
 var processEnter = function(e) {
     if (e.which == 13) {
@@ -301,7 +329,7 @@ var width = $(window).width()-275;
 
 var xmax = 110;
 
-var margins = [50, 30, 50, 10], mb = margins[0], ml = margins[1], mt = margins[2], mr = margins[3];
+var margins = [50, 30, 50, 30], mb = margins[0], ml = margins[1], mt = margins[2], mr = margins[3];
 var w = width - (ml + mr),
     h = height - (mb + mt);
 var x = d3.scale.linear().range([0, w]).domain([0,xmax]);
@@ -349,9 +377,10 @@ controls.filter(function(d,i) { return i == 1; })
         resetPonies();
         });
 
+
 // Add the start and finish lines
 d3.select('#data-region').selectAll('.border-line')
-        .data([10, 100])
+        .data([10, 100],function(d) { return d; })
     .enter()
         .append('svg:line')
         .classed('border-line',true)
@@ -385,6 +414,25 @@ $(window).resize(function() {
 
     updatePonyLineup();
 });
+
+$("#race-dir-toggle").toggleSwitch({
+            highlight: false,
+            change: function(e) {
+                if (ponies.length > 0) {
+                    updateStartDir($('#race-dir-toggle').val());
+                }
+              },
+        });
+
+$("#randomize-toggle").toggleSwitch({
+            highlight:false,
+            change: function(e) {
+                if (ponies.length > 0) {
+                    randomizePonies($('#randomize-toggle').val());
+                }
+              },
+        });
+
         </script>
     </body>
 </html>
