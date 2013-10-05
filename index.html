@@ -177,8 +177,8 @@ span { font-size: .9em; }
                   </div>
               </div>
               <div id="controls">
-                  <button class="first last">Go!</button>
-                  <button class="first last">Reset</button>
+                  <button id="go-button" class="first last" onclick="runButtonClick()">Go!</button>
+                  <button id="pause-button" class="first last" onclick="resetButtonClick()">Reset</button>
               </div>
             </div>
             <div id="right-col">
@@ -346,39 +346,33 @@ var plot = svg.append('g').attr('id','plot').attr('transform','translate('+ml+',
 var dataRegion = plot.append('g').attr('id','data-region');
 var bikeholder = plot.append('g').attr('id','bike-holder');
 
-var controls = d3.selectAll('#controls button')
-    .data(['Go !','Reset']);
-
-// Deal with 'Go' button clicks
-controls.filter(function(d,i) { return i == 0; })
-    .on('click',function(w) {
+var runButtonClick = function() {
         // Only run ponies if there is at least one to run!
         if (ponies.length > 0)
         {
             if (!running && !done) {
                 running = true;
-                d3.selectAll('#controls button').filter(function(d,i) { return i == 0;}).text('Pause');
-                document.getElementById('name').disabled = true;
-                document.getElementById('num').disabled = true;
+                $("#go-button").text('Pause');
+                $("#name").prop('disabled', true);
+                $("#num").prop('disabled', true);
                 allowChanging = false;
                 runPonies();
             } else if (!done) {
                 running = false;
-                d3.selectAll('#controls button').filter(function(d,i) { return i == 0;}).text('Go!');
+                $("#go-button").text('Go!');
             }
         } else {
             window.alert('You have to have at least one jockey racing!')
         }
-    });
+}
 
 // Deal with 'Reset' button clicks
-controls.filter(function(d,i) { return i == 1; })
-    .on('click',function(w) {
-        document.getElementById('name').disabled = false;
-        document.getElementById('num').disabled = false;
-        allowChanging = true;
-        resetPonies();
-        });
+var resetButtonClick = function() {
+    $("#name").prop('disabled', false);
+    $("#num").prop('disabled', false);
+    allowChanging = true;
+    resetPonies();
+};
 
 
 // Add the start and finish lines
