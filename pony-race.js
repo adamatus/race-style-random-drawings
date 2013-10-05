@@ -51,7 +51,7 @@ var runPonies = function() {
                 });
               });
            
-            d3.selectAll('#controls button').filter(function(d,i) { return i == 0;}).text('Done');
+            $("#go-button").text('Done');
             done = true;
             running = false;
         }
@@ -163,8 +163,7 @@ var resetPonies = function() {
         .transition().ease('linear').duration(250)
         .attr('transform',function(d,i) { return 'translate('+x(d.progress)+',0)';})
 
-    d3.selectAll('#controls button').filter(function(d,i) { return i ==
-            0;}).text('Go!');
+    $("#go-button").text('Go!');
 
     d3.selectAll('.rank-entry').remove();
 };
