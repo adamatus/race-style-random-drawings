@@ -320,12 +320,12 @@ var updatePonyLineup = function() {
 
 var expandAdvOptions = function() {
     if (advOptionsHidden) {
-        d3.select('#adv-options-expand').style('display','block');
-        d3.select('#adv-options-title').text('- Hide Advanced Options');
+        $('#adv-options-expand').css({'display':'block'});
+        $('#adv-options-title').text('- Hide Advanced Options');
         advOptionsHidden = false;
     } else {
-        d3.select('#adv-options-expand').style('display','none');
-        d3.select('#adv-options-title').text('+ Show Advanced Options');
+        $('#adv-options-expand').css({'display':'none'});
+        $('#adv-options-title').text('+ Show Advanced Options');
         advOptionsHidden = true;
     }
 };
