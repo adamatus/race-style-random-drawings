@@ -316,9 +316,9 @@ var ponies = [];
 var jockeys = [];
 var random = false;
 
-//var type = 'bike';
+var type = 'bike';
 //var type = 'shape';
-var type = 'pony';
+//var type = 'pony';
 
 var nextPlace = 1;
 var raceLength = 10; // Race length in seconds
@@ -439,6 +439,7 @@ d3.xml("road.svg", "image/svg+xml", function(xml) {
   var importedNode = document.importNode(xml.documentElement, true);
   defs.append("g")
             .attr('id','road-bike')
+            .attr('transform','translate(-551,-156)')
         .each(function(d, i){ 
             var plane = this.appendChild(importedNode.cloneNode(true)); 
         });
@@ -448,6 +449,7 @@ d3.xml("pony.svg", "image/svg+xml", function(xml) {
   var importedNode = document.importNode(xml.documentElement, true);
   defs.append("g")
             .attr('id','race-pony')
+            .attr('transform','translate(-605,-235)')
         .each(function(d, i){ 
             var plane = this.appendChild(importedNode.cloneNode(true)); 
         });

@@ -324,7 +324,7 @@ var updatePonyLineup = function() {
             // Update positions for existing shapes
             ponyGroup.select('.pony').select('.race-pony')
                 .transition().duration(100)
-                    .attr('transform',function(d,i) { return 'scale(.1,.1) translate('+x(20)+','+y(i)+')'; });
+                    .attr('transform',function(d,i) { return 'translate('+x(10)+','+y(.5)+') scale(.1,.1)'; });
                     //.attr('y',y(.5)-Math.min(y(.5)-y(0),height/10)/2)
                     //.attr('height',Math.min(y(.5)-y(0),height/10))
                     //.attr('width',x(10)-x(0));
@@ -334,7 +334,7 @@ var updatePonyLineup = function() {
                     .classed('pony',true);
 
             var newBikes = racePonies.append('svg:g')
-                  .attr('transform',function(d,i) { return 'scale(.1,.1) translate('+x(20)+','+y(i)+')'; })
+                  .attr('transform',function(d,i) { return 'translate('+x(10)+','+y(.5)+') scale(.1,.1)'; })
                     .classed('race-pony',true);
 
             newBikes.append('use').attr('xlink:href','#road-bike');
@@ -343,7 +343,7 @@ var updatePonyLineup = function() {
             // Update positions for existing shapes
             ponyGroup.select('.pony').select('.race-pony')
                 .transition().duration(100)
-                    .attr('transform',function(d,i) { return 'scale(.1,.1) translate('+x(20)+','+y(i)+')'; });
+                    .attr('transform',function(d,i) { return 'translate('+x(10)+','+y(.5)+') scale(.1,.1)'; });
                     //.attr('y',y(.5)-Math.min(y(.5)-y(0),height/10)/2)
                     //.attr('height',Math.min(y(.5)-y(0),height/10))
                     //.attr('width',x(10)-x(0));
@@ -353,7 +353,7 @@ var updatePonyLineup = function() {
                     .classed('pony',true);
 
             var newPonies = racePonies.append('svg:g')
-                  .attr('transform',function(d,i) { return 'scale(.1,.1) translate('+x(20)+','+y(i)+')'; })
+                  .attr('transform',function(d,i) { return 'translate('+x(10)+','+y(.5)+') scale(.1,.1)'; })
                     .classed('race-pony',true);
 
             newPonies.append('use').attr('xlink:href','#race-pony');
