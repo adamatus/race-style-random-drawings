@@ -316,6 +316,9 @@ var ponies = [];
 var jockeys = [];
 var random = false;
 
+var type = 'bike';
+//var type = 'shape';
+
 var nextPlace = 1;
 var raceLength = 10; // Race length in seconds
 
@@ -344,7 +347,6 @@ var svg = d3.select('#chart').append('svg:svg')
 var defs = svg.append('defs');
 var plot = svg.append('g').attr('id','plot').attr('transform','translate('+ml+','+mt+')');
 var dataRegion = plot.append('g').attr('id','data-region');
-var bikeholder = plot.append('g').attr('id','bike-holder');
 
 var runButtonClick = function() {
         // Only run ponies if there is at least one to run!
@@ -430,6 +432,8 @@ $("#randomize-toggle").toggleSwitch({
               },
         });
 
+var bike = '';
+
 d3.xml("road.svg", "image/svg+xml", function(xml) {  
   var importedNode = document.importNode(xml.documentElement, true);
   defs.selectAll("g")
@@ -446,13 +450,14 @@ d3.xml("road.svg", "image/svg+xml", function(xml) {
             //d3.select(plane).select("path").attr("fill", "green");
         });
 
-  var bikes = plot.selectAll('.bikes').data([1,2,3])
-          .enter()
-      .append('g')
-          .attr('transform',function(d,i) { return 'scale(.1,.1) translate(0,'+y(i)+')'; })
-          .attr('id',function(d,i) { return 'bike-'+i; });
+  // This is what adds the bikes
+//  var bikes = plot.selectAll('.bikes').data([1,2,3])
+//          .enter()
+//      .append('g')
+//          .attr('transform',function(d,i) { return 'scale(.1,.1) translate(0,'+y(i)+')'; })
+//          .attr('id',function(d,i) { return 'bike-'+i; });
 
-  bikes.append('use').attr('xlink:href','#road-bike');
+//  bikes.append('use').attr('xlink:href','#road-bike');
 });
 
         </script>

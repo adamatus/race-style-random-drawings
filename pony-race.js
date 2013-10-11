@@ -252,6 +252,9 @@ var updateJockeyLineup = function() {
 
 };
 
+// shape: .pony-group .pony rect
+// pony:
+// bike: .pony-group .pony g 
 
 var updatePonyLineup = function() {
     // Make sure y domain is correct
@@ -289,31 +292,54 @@ var updatePonyLineup = function() {
             .classed('pony-lane',true)
             .style('fill',function(d) { return d.col;});
 
-    // Update positions for existing ponies
-    ponyGroup.select('.pony').select('.race-pony')
-        .transition().duration(100)
-            .style('fill',function(d) { return d.col;})
-            .attr('y',y(.5)-Math.min(y(.5)-y(0),height/10)/2)
-            .attr('height',Math.min(y(.5)-y(0),height/10))
-            .attr('width',x(10)-x(0));
+    // shape: g.pony-group g.pony rect.race-pony
+    // pony:
+    // bike: g.pony-group g.pony g.race-pony 
+    
+   
+    switch (type)
+    {
+        case 'shape':
+            // Update positions for existing shapes
+            ponyGroup.select('.pony').select('.race-pony')
+                .transition().duration(100)
+                    .attr('y',y(.5)-Math.min(y(.5)-y(0),height/10)/2)
+                    .attr('height',Math.min(y(.5)-y(0),height/10))
+                    .attr('width',x(10)-x(0));
 
-    // Add new pony groups
-    var racePonies = newPonyGroup.append('svg:g')
-            .classed('pony',true);
+            // Add new pony shapes
+            var racePonies = newPonyGroup.append('svg:g')
+                    .classed('pony',true);
 
-    racePonies.append('svg:rect')
-            .style('stroke','none')
-            .attr('y',y(.5)-Math.min(y(.5)-y(0),height/10)/2)
-            .attr('height',Math.min(y(.5)-y(0),height/10))
-            .attr('width',x(10)-x(0))
-            .style('stroke','none')
-            .classed('race-pony',true)
-            .style('fill',function(d) { return d.col;});
+            racePonies.append('svg:rect')
+                    .style('stroke','none')
+                    .attr('y',y(.5)-Math.min(y(.5)-y(0),height/10)/2)
+                    .attr('height',Math.min(y(.5)-y(0),height/10))
+                    .attr('width',x(10)-x(0))
+                    .style('stroke','none')
+                    .classed('race-pony',true)
+                    .style('fill',function(d) { return d.col;});
+            break;
+        case 'bike':
+            // Update positions for existing shapes
+            ponyGroup.select('.pony').select('.race-pony')
+                .transition().duration(100)
+                    .attr('transform',function(d,i) { return 'scale(.1,.1) translate('+x(20)+','+y(i)+')'; });
+                    //.attr('y',y(.5)-Math.min(y(.5)-y(0),height/10)/2)
+                    //.attr('height',Math.min(y(.5)-y(0),height/10))
+                    //.attr('width',x(10)-x(0));
 
-    //racePonies.append('svg:text')
-    //    .text(function(d) { console.log(d); return d.jockey[0]; })
-    //    .attr('x',0)
-    //    .attr('y',0);
+            // Add new pony shapes
+            var racePonies = newPonyGroup.append('svg:g')
+                    .classed('pony',true);
+
+            var newBikes = racePonies.append('svg:g')
+                  .attr('transform',function(d,i) { return 'scale(.1,.1) translate('+x(20)+','+y(i)+')'; })
+                    .classed('race-pony',true);
+
+            newBikes.append('use').attr('xlink:href','#road-bike');
+            break;
+    }
 
     ponyGroup.exit().remove();
 };
