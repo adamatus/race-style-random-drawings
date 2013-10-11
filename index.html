@@ -316,8 +316,9 @@ var ponies = [];
 var jockeys = [];
 var random = false;
 
-var type = 'bike';
+//var type = 'bike';
 //var type = 'shape';
+var type = 'pony';
 
 var nextPlace = 1;
 var raceLength = 10; // Race length in seconds
@@ -436,28 +437,20 @@ var bike = '';
 
 d3.xml("road.svg", "image/svg+xml", function(xml) {  
   var importedNode = document.importNode(xml.documentElement, true);
-  defs.selectAll("g")
-        .data([1])
-    .enter()
-        .append("g")
+  defs.append("g")
             .attr('id','road-bike')
-    //.attr("transform", function(d, i){ 
-    //    return "translate(" + (i * (w / dataset.length)) + "," 
-    //        + (h - 30) + ")"
-    //        +"scale("+ 1 +")";
         .each(function(d, i){ 
             var plane = this.appendChild(importedNode.cloneNode(true)); 
-            //d3.select(plane).select("path").attr("fill", "green");
         });
+});
 
-  // This is what adds the bikes
-//  var bikes = plot.selectAll('.bikes').data([1,2,3])
-//          .enter()
-//      .append('g')
-//          .attr('transform',function(d,i) { return 'scale(.1,.1) translate(0,'+y(i)+')'; })
-//          .attr('id',function(d,i) { return 'bike-'+i; });
-
-//  bikes.append('use').attr('xlink:href','#road-bike');
+d3.xml("pony.svg", "image/svg+xml", function(xml) {  
+  var importedNode = document.importNode(xml.documentElement, true);
+  defs.append("g")
+            .attr('id','race-pony')
+        .each(function(d, i){ 
+            var plane = this.appendChild(importedNode.cloneNode(true)); 
+        });
 });
 
         </script>
