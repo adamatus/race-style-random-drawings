@@ -258,7 +258,7 @@ var updateJockeyLineup = function() {
 
 var updatePonyLineup = function() {
     // Make sure y domain is correct
-    y.domain([0,ponies.length]);
+    y.domain([0,ponies.length+1]);
     
     var ponyGroup = d3.select('#data-region').selectAll('.pony-group')
             .data(ponies,function(d) {return d.jockey + d.num; });
@@ -276,7 +276,7 @@ var updatePonyLineup = function() {
     // Update positions for existing lanes
     ponyGroup.select('.pony-lane') 
         .transition().duration(100)
-            .attr('y',y(.5)-Math.min(y(.05)-y(0),height/100)/2)
+            .attr('y',y(1)-Math.min(y(.05)-y(0),height/100)/2)
             .attr('height',Math.min(y(.05)-y(0),height/100))
             .attr('x',x(10))
             .attr('width',x(90)-x(0))
@@ -284,7 +284,7 @@ var updatePonyLineup = function() {
 
     // Add new lanes
     newPonyGroup.append('svg:rect')
-            .attr('y',y(.5)-Math.min(y(.05)-y(0),height/100)/2)
+            .attr('y',y(1)-Math.min(y(.05)-y(0),height/100)/2)
             .attr('height',Math.min(y(.05)-y(0),height/100))
             .attr('x',x(10))
             .attr('width',x(90)-x(0))
@@ -303,7 +303,7 @@ var updatePonyLineup = function() {
             // Update positions for existing shapes
             ponyGroup.select('.pony').select('.race-pony')
                 .transition().duration(100)
-                    .attr('y',y(.5)-Math.min(y(.5)-y(0),height/10)/2)
+                    .attr('y',y(1)-Math.min(y(.5)-y(0),height/10))
                     .attr('height',Math.min(y(.5)-y(0),height/10))
                     .attr('width',x(10)-x(0));
 
@@ -313,7 +313,7 @@ var updatePonyLineup = function() {
 
             racePonies.append('svg:rect')
                     .style('stroke','none')
-                    .attr('y',y(.5)-Math.min(y(.5)-y(0),height/10)/2)
+                    .attr('y',y(1)-Math.min(y(.5)-y(0),height/10))
                     .attr('height',Math.min(y(.5)-y(0),height/10))
                     .attr('width',x(10)-x(0))
                     .style('stroke','none')
@@ -324,17 +324,14 @@ var updatePonyLineup = function() {
             // Update positions for existing shapes
             ponyGroup.select('.pony').select('.race-pony')
                 .transition().duration(100)
-                    .attr('transform',function(d,i) { return 'translate('+x(10)+','+y(.5)+') scale(.1,.1)'; });
-                    //.attr('y',y(.5)-Math.min(y(.5)-y(0),height/10)/2)
-                    //.attr('height',Math.min(y(.5)-y(0),height/10))
-                    //.attr('width',x(10)-x(0));
+                    .attr('transform',function(d,i) { return 'translate('+x(10)+','+y(1)+') scale(.1,.1)'; });
 
             // Add new pony shapes
             var racePonies = newPonyGroup.append('svg:g')
                     .classed('pony',true);
 
             var newBikes = racePonies.append('svg:g')
-                  .attr('transform',function(d,i) { return 'translate('+x(10)+','+y(.5)+') scale(.1,.1)'; })
+                  .attr('transform',function(d,i) { return 'translate('+x(10)+','+y(1)+') scale(.1,.1)'; })
                     .classed('race-pony',true);
 
             newBikes.append('use').attr('xlink:href','#road-bike');
@@ -343,17 +340,14 @@ var updatePonyLineup = function() {
             // Update positions for existing shapes
             ponyGroup.select('.pony').select('.race-pony')
                 .transition().duration(100)
-                    .attr('transform',function(d,i) { return 'translate('+x(10)+','+y(.5)+') scale(.1,.1)'; });
-                    //.attr('y',y(.5)-Math.min(y(.5)-y(0),height/10)/2)
-                    //.attr('height',Math.min(y(.5)-y(0),height/10))
-                    //.attr('width',x(10)-x(0));
+                    .attr('transform',function(d,i) { return 'translate('+x(10)+','+y(1)+') scale(.1,.1)'; });
 
             // Add new pony shapes
             var racePonies = newPonyGroup.append('svg:g')
                     .classed('pony',true);
 
             var newPonies = racePonies.append('svg:g')
-                  .attr('transform',function(d,i) { return 'translate('+x(10)+','+y(.5)+') scale(.1,.1)'; })
+                  .attr('transform',function(d,i) { return 'translate('+x(10)+','+y(1)+') scale(.1,.1)'; })
                     .classed('race-pony',true);
 
             newPonies.append('use').attr('xlink:href','#race-pony');

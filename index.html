@@ -439,7 +439,7 @@ d3.xml("road.svg", "image/svg+xml", function(xml) {
   var importedNode = document.importNode(xml.documentElement, true);
   defs.append("g")
             .attr('id','road-bike')
-            .attr('transform','translate(-551,-156)')
+            .attr('transform','translate(-551,-312)')
         .each(function(d, i){ 
             var plane = this.appendChild(importedNode.cloneNode(true)); 
         });
@@ -449,7 +449,7 @@ d3.xml("pony.svg", "image/svg+xml", function(xml) {
   var importedNode = document.importNode(xml.documentElement, true);
   defs.append("g")
             .attr('id','race-pony')
-            .attr('transform','translate(-605,-235)')
+            .attr('transform','translate(-605,-471)')
         .each(function(d, i){ 
             var plane = this.appendChild(importedNode.cloneNode(true)); 
         });
