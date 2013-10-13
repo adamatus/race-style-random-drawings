@@ -334,7 +334,7 @@ var updatePonyLineup = function() {
                   .attr('transform',function(d,i) { return 'translate('+x(10)+','+y(1)+') scale(.1,.1)'; })
                     .classed('race-pony',true);
 
-            newBikes.append('use').attr('xlink:href','#road-bike');
+            newBikes.append('use').attr('xlink:href',function(d) { return '#road-bike-'+d.col.split('').splice(1,6).join(''); });
             break;
         case 'pony':
             // Update positions for existing shapes

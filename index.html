@@ -435,23 +435,33 @@ $("#randomize-toggle").toggleSwitch({
 
 var bike = '';
 
-d3.xml("road.svg", "image/svg+xml", function(xml) {  
-  var importedNode = document.importNode(xml.documentElement, true);
-  defs.append("g")
-            .attr('id','road-bike')
-            .attr('transform','translate(-551,-312)')
-        .each(function(d, i){ 
-            var plane = this.appendChild(importedNode.cloneNode(true)); 
-        });
-});
+clCount = 0;
+// Create a differently colored version of each icon to be used
+// FIXME Maybe we should only create the icons when the jockey is added?
+//   This prevents us from having a bunch of unused refs in the svg
+for (var i=0; i < colorList.length; i++) {
+    d3.xml("icons/road.svg", "image/svg+xml", function(xml) {  
+      var j = clCount++;
+      var importedNode = document.importNode(xml.documentElement, true);
+      defs.append("g")
+                .attr('id','road-bike-'+colorList[j].value.split('').splice(1,6).join(''))
+                .attr('transform','translate(-551,-312)')
+            .each(function(d, i){ 
+                var bike = this.appendChild(importedNode.cloneNode(true)); 
+                d3.select(bike).selectAll('#frame path')
+                   .style('fill',colorList[j].value)
+                   .style('stroke',colorList[j].value);
+            });
+    });
+}
 
-d3.xml("pony.svg", "image/svg+xml", function(xml) {  
+d3.xml("icons/pony.svg", "image/svg+xml", function(xml) {  
   var importedNode = document.importNode(xml.documentElement, true);
   defs.append("g")
             .attr('id','race-pony')
             .attr('transform','translate(-605,-471)')
         .each(function(d, i){ 
-            var plane = this.appendChild(importedNode.cloneNode(true)); 
+            var pony = this.appendChild(importedNode.cloneNode(true)); 
         });
 });
 
