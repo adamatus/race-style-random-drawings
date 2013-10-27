@@ -1,100 +1,98 @@
 <html>
-    <head>
-        <title>Carnival-style pony-race drawing</title>
-        <link type="text/css" rel="stylesheet" href="button.css">
-        <link type="text/css" rel="stylesheet" href="charts.css">
-        <link rel="stylesheet" type="text/css" href="libs/jquery-simplecolorpicker/jquery.simplecolorpicker.css"/>
-        <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css">
-        <link rel="stylesheet" href="random-drawing.css">
-        <link href='http://fonts.googleapis.com/css?family=Kite+One' rel='stylesheet' type='text/css'>
+  <head>
+    <title>Carnival-style pony-race drawing</title>
 
-        <script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
-        <script language="javascript" type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
-        <script language="javascript" type ="text/javascript" src="libs/jquery-simplecolorpicker/jquery.simplecolorpicker.js"></script>
-    </head>
-    <body>
-        <h1>Bike Race!</h1>
-          <div id="container">
-            <div id="left-col">
-              <div id="jockey-list-cont">
-                  <h2>Riders</h2>
-                  <div class="inputs-text" id="jockey-list">
-                  </div>
-              </div>
-              <div id="inputs">
-                  <div class="inputs-text">
-                      <input type="text" id="name" class="jockey-name
-                      default-input"
-                      value="Rider"/><input type="text" id="num" class="jockey-num
-                      default-input" value="#"/>
-                    <select name="colorpicker" id="colorpicker">
-                      <!-- Colors from ColorBrewer2.org  -->
-                      <option value="#1F78B4">Blue</option>
-                      <option value="#33A02C">Green</option>
-                      <option value="#E31A1C">Red</option>
-                      <option value="#FF7F00">Orange</option>
-                      <option value="#6A3D9A">Purple</option>
-                      <option value="#A6CEE3">Light Blue</option>
-                      <option value="#B2DF8A">Light Green</option>
-                      <option value="#FB9A99">Light Red</option>
-                      <option value="#FDBF6F">Light Orange</option>
-                      <option value="#CAB2D6">Light Purple</option>
-                    </select><span id="add-jockey" onclick="addEntrant()">+</span>
-                  </div>
-                  <div class="clear"></div>
-              </div>
-              <div id="adv-options">
-                  <span onclick="expandAdvOptions()" id="adv-options-title">+ Show Advanced Options</span>
-                  <div id="adv-options-expand">
-                      <span>Speed:</span><input type="range" id="race-speed" name="race-speed" min="0" max="20"
-                      value="10" onChange="updateSpeed()">
-                      <div id='race-dir-toggle-containter'>
-                          <select id='race-dir-toggle' class='race-dir-toggle'>
-                              <option>Left</option>
-                              <option>Right</option>
-                          </select>
-                      </div>
+    <link type="text/css" rel="stylesheet" href="button.css">
+    <link type="text/css" rel="stylesheet" href="charts.css">
+    <link rel="stylesheet" type="text/css" href="libs/jquery-simplecolorpicker/jquery.simplecolorpicker.css"/>
+    <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="random-drawing.css">
+    <link href='http://fonts.googleapis.com/css?family=Kite+One' rel='stylesheet' type='text/css'>
 
-                      <div id='randomizee-toggle-containter'>
-                          <select id='randomize-toggle' class='randomize-toggle'>
-                              <option>Sorted</option>
-                              <option>Random</option>
-                          </select>
-                      </div>
+    <script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
+    <script language="javascript" type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+    <script language="javascript" type ="text/javascript" src="libs/jquery-simplecolorpicker/jquery.simplecolorpicker.js"></script>
 
-                  </div>
-              </div>
-              <div id="controls">
-                  <button id="go-button" class="first last" onclick="runButtonClick()">Go!</button>
-                  <button id="pause-button" class="first last" onclick="resetButtonClick()">Reset</button>
-              </div>
-            </div>
-            <div id="right-col">
-
-              <div id="chart">
-              </div>
-
-              <div class="modal fade" id="winner-list-modal" id="myModal" tabindex="-1">
-                <div class="modal-dialog">
-                  <div class="modal-content">
-                    <div class="modal-header">
-                      <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                      <h4 class="modal-title">Race Results</h4>
-                    </div>
-                    <div class="modal-body">
-                      <div id="winner-list">
-                      </div>
-                    </div>
-                    <div class="modal-footer">
-                      <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                    </div>
-                  </div><!-- /.modal-content -->
-              </div><!-- /.modal-dialog -->
-            </div><!-- /.modal -->
-            </div>
-            <div class="clear"></div>
+  </head>
+  <body>
+    <h1>Bike Race!</h1>
+    <div id="container">
+      <div id="left-col">
+        <div id="jockey-list-cont">
+          <h2>Riders</h2>
+          <div class="inputs-text" id="jockey-list">
           </div>
-          <script language="javascript" type="text/javascript" src="random-drawing.js"></script>
-          <script src="http://netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
-    </body>
+        </div>
+        <div id="inputs">
+          <div class="inputs-text">
+            <input type="text" id="name" class="jockey-name default-input"
+              value="Rider"/><input type="text" id="num" class="jockey-num
+              default-input" value="#"/>
+            <select name="colorpicker" id="colorpicker">
+              <!-- Colors from ColorBrewer2.org  -->
+              <option value="#1F78B4">Blue</option>
+              <option value="#33A02C">Green</option>
+              <option value="#E31A1C">Red</option>
+              <option value="#FF7F00">Orange</option>
+              <option value="#6A3D9A">Purple</option>
+              <option value="#A6CEE3">Light Blue</option>
+              <option value="#B2DF8A">Light Green</option>
+              <option value="#FB9A99">Light Red</option>
+              <option value="#FDBF6F">Light Orange</option>
+              <option value="#CAB2D6">Light Purple</option>
+            </select><span id="add-jockey" onclick="addEntrant()">+</span>
+          </div>
+          <div class="clear"></div>
+        </div>
+        <div id="adv-options">
+          <span onclick="expandAdvOptions()" id="adv-options-title">+ Show Advanced Options</span>
+          <div id="adv-options-expand">
+            <span>Speed:</span><input type="range" id="race-speed" name="race-speed" min="0" max="20"
+            value="10" onChange="updateSpeed()">
+
+            <div id='race-dir-toggle-containter'>
+              <select id='race-dir-toggle' class='race-dir-toggle'>
+                <option>Left</option>
+                <option>Right</option>
+              </select>
+            </div>
+
+            <div id='randomizee-toggle-containter'>
+              <select id='randomize-toggle' class='randomize-toggle'>
+                <option>Sorted</option>
+                <option>Random</option>
+              </select>
+            </div>
+
+          </div>
+        </div>
+        <div id="controls">
+          <button id="go-button" class="first last" onclick="runButtonClick()">Go!</button>
+          <button id="pause-button" class="first last" onclick="resetButtonClick()">Reset</button>
+        </div>
+      </div>
+      <div id="right-col">
+        <div id="chart"></div>
+        <div class="modal fade" id="winner-list-modal" id="myModal" tabindex="-1">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title">Race Results</h4>
+              </div>
+              <div class="modal-body">
+                <div id="winner-list"></div>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+              </div>
+            </div><!-- /.modal-content -->
+          </div><!-- /.modal-dialog -->
+        </div><!-- /.modal -->
+      </div>
+      <div class="clear"></div>
+    </div>
+    <script language="javascript" type="text/javascript" src="random-drawing.js"></script>
+    <script src="http://netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
+  </body>
 </html>
