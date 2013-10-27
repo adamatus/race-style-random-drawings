@@ -627,6 +627,46 @@ var loadSvg = function(xml) {
     });
 };
 
+// Add pop-up winner dialog
+var addWinnerDialog = function() {
+  var dialog = d3.select('body')
+    .append('div')
+      .attr('class','modal fade')
+      .attr('id','winner-list-modal')
+      .attr('tabindex','-1')
+      .append('div')
+        .attr('class','modal-dialog')
+        .append('div')
+          .attr('class','modal-content');
+
+  var dialog_header = dialog.append('div')
+    .attr('class','modal-header');
+
+  dialog_header.append('button')
+      .attr('type','button')
+      .attr('class','close')
+      .attr('data-dismiss','modal')
+      .text('X');
+
+  dialog_header.append('h4')
+    .attr('class','modal-title')
+    .text('Race Results');
+
+  dialog.append('div')
+    .attr('class','modal-body')
+    .attr('id','winner-list');
+
+  dialog.append('div')
+    .attr('class','modal-footer')
+    .append('button')
+      .attr('type','button')
+      .attr('class','btn btn-default')
+      .attr('data-dismiss','modal')
+      .text('Close');
+};
+
+addWinnerDialog();
+
 // Create a differently colored version of each icon to be used
 // FIXME Maybe we should only create the icons when the jockey is added?
 //   This prevents us from having a bunch of unused refs in the svg
