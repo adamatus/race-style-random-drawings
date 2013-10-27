@@ -4,16 +4,13 @@
         <link type="text/css" rel="stylesheet" href="button.css">
         <link type="text/css" rel="stylesheet" href="charts.css">
         <link rel="stylesheet" type="text/css" href="libs/jquery-simplecolorpicker/jquery.simplecolorpicker.css"/>
-        <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css">
-        <link rel="stylesheet" href="libs/jquery-ui.toggleSwitch/jquery-ui.toggleSwitch.css">
+        <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css">
         <link rel="stylesheet" href="random-drawing.css">
         <link href='http://fonts.googleapis.com/css?family=Kite+One' rel='stylesheet' type='text/css'>
 
         <script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
         <script language="javascript" type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
-        <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
         <script language="javascript" type ="text/javascript" src="libs/jquery-simplecolorpicker/jquery.simplecolorpicker.js"></script>
-        <script language="javascript" type ="text/javascript" src="libs/jquery-ui.toggleSwitch/jquery-ui.toggleSwitch.js"></script>
     </head>
     <body>
         <h1>Bike Race!</h1>
@@ -52,16 +49,14 @@
                       <span>Speed:</span><input type="range" id="race-speed" name="race-speed" min="0" max="20"
                       value="10" onChange="updateSpeed()">
                       <div id='race-dir-toggle-containter'>
-                          <select id='race-dir-toggle' class='ui-toggle-switch
-                              race-dir-toggle'>
+                          <select id='race-dir-toggle' class='race-dir-toggle'>
                               <option>Left</option>
                               <option>Right</option>
                           </select>
                       </div>
 
                       <div id='randomizee-toggle-containter'>
-                          <select id='randomize-toggle' class='ui-toggle-switch
-                              randomize-toggle'>
+                          <select id='randomize-toggle' class='randomize-toggle'>
                               <option>Sorted</option>
                               <option>Random</option>
                           </select>
@@ -79,11 +74,27 @@
               <div id="chart">
               </div>
 
-              <div id="winner-list" title="Race Results">
-              </div>
+              <div class="modal fade" id="winner-list-modal" id="myModal" tabindex="-1">
+                <div class="modal-dialog">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                      <h4 class="modal-title">Race Results</h4>
+                    </div>
+                    <div class="modal-body">
+                      <div id="winner-list">
+                      </div>
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    </div>
+                  </div><!-- /.modal-content -->
+              </div><!-- /.modal-dialog -->
+            </div><!-- /.modal -->
             </div>
             <div class="clear"></div>
           </div>
           <script language="javascript" type="text/javascript" src="random-drawing.js"></script>
+          <script src="http://netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
     </body>
 </html>

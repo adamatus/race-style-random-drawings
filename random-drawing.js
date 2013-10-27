@@ -44,12 +44,13 @@ var runPonies = function() {
            d3.selectAll('.rank-entry').sort(function(a,b) { return a.finishPos < b.finishPos ? -1 : 1; }).order(); 
                
            // setTimeout(function() { d3.select('#winner-list').style('display','block'); }, 350);
-            $(function() {
-                $( "#winner-list" ).dialog({
-                  height: 200,
-                  modal: true
-                });
-              });
+          //  $(function() {
+          //      $( "#winner-list" ).dialog({
+          //        height: 200,
+          //        modal: true
+          //      });
+          //    });
+          $('#winner-list-modal').modal('show')
            
             $("#go-button").text('Done');
             done = true;
@@ -591,23 +592,23 @@ $(window).resize(function() {
     updatePonyLineup();
 });
 
-$("#race-dir-toggle").toggleSwitch({
-            highlight: false,
-            change: function(e) {
-                if (ponies.length > 0) {
-                    updateStartDir($('#race-dir-toggle').val());
-                }
-              },
-        });
+//$("#race-dir-toggle").toggleSwitch({
+//            highlight: false,
+//            change: function(e) {
+//                if (ponies.length > 0) {
+//                    updateStartDir($('#race-dir-toggle').val());
+//                }
+//              },
+//        });
 
-$("#randomize-toggle").toggleSwitch({
-            highlight:false,
-            change: function(e) {
-                if (ponies.length > 0) {
-                    randomizePonies($('#randomize-toggle').val());
-                }
-              },
-        });
+//$("#randomize-toggle").toggleSwitch({
+//            highlight:false,
+//            change: function(e) {
+//                if (ponies.length > 0) {
+//                    randomizePonies($('#randomize-toggle').val());
+//                }
+//              },
+//        });
 
 var bike = '';
 
