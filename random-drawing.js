@@ -124,12 +124,15 @@ var addEntrant = function() {
                  .style('fill',col)
                  .style('stroke',col);
             });
+
+            // Update pony line-up once defs have been updated with new
+            // colored icon
+            updatePonyLineup();
         };
 
         d3.xml(icon_list[icon].file, "image/svg+xml", loadSvg);
 
         updateJockeyLineup();
-        updatePonyLineup();
 
         // Remove the color from the color picker
         for (i = 0; i < colorList.length; i++) {
