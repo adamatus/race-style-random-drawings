@@ -341,14 +341,24 @@ var updatePonyLineup = function() {
   ponyGroup.select('.pony').select('.race-pony')
     .transition().duration(100)
       .attr('transform',function(d,i) {
-        return 'translate('+x(10)+','+y(1)+') scale(.2,.2)';
+        var maxH = y(0.9)-y(0);
+        var maxW = x(10)-x(0);
+        var widthScale = maxW/icon_list[d.icon].x;
+        var heightScale = maxH/icon_list[d.icon].y;
+        var scale = d3.min([widthScale,heightScale]);
+        return 'translate('+x(10)+','+y(1)+') scale('+scale+','+scale+')';
       });
 
   // Add new icons
   var newBikes = racePonies.append('svg:g')
       .classed('race-pony',true)
       .attr('transform',function(d,i) {
-        return 'translate('+x(10)+','+y(1)+') scale(.2,.2)';
+        var maxH = y(0.9)-y(0);
+        var maxW = x(10)-x(0);
+        var widthScale = maxW/icon_list[d.icon].x;
+        var heightScale = maxH/icon_list[d.icon].y;
+        var scale = d3.min([widthScale,heightScale]);
+        return 'translate('+x(10)+','+y(1)+') scale('+scale+','+scale+')';
       });
 
   newBikes.append('use')
