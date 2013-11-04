@@ -1,7 +1,7 @@
 var icon_list = {
-  bike: {file: 'icons/road_bike.svg', x: 551, y: 312, name: 'Road Bike'},
+  bike: {file: 'icons/road_bike.svg', x: 575, y: 312, name: 'Road Bike'},
   car: {file: 'icons/race_car.svg', x: 503, y: 182, name: 'Race Car'},
-  pony: {file: 'icons/rocking_horse.svg', x: 510, y: 394, name: 'Pony'},
+  pony: {file: 'icons/rocking_horse.svg', x: 570, y: 500, name: 'Pony'},
   snail: {file: 'icons/snail.svg', x: 332, y: 142, name: 'Snail'},
   snail2: {file: 'icons/snail2.svg', x: 192, y: 122, name: 'Snail2'}
   // seahorse
@@ -301,7 +301,7 @@ var updateJockeyLineup = function() {
 
 var updatePonyLineup = function() {
   // Make sure y domain is correct
-  y.domain([0,ponies.length+1]);
+  y.domain([0,ponies.length]);
 
   // Update position for old ponies
   var ponyGroup = d3.select('#data-region').selectAll('.pony-group')
