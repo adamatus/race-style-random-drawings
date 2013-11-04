@@ -1,3 +1,14 @@
+var icon_list = {
+  bike: {file: 'icons/road_bike.svg', x: 551, y: 312, name: 'Road Bike'},
+  car: {file: 'icons/race_car.svg', x: 503, y: 182, name: 'Race Car'},
+  pony: {file: 'icons/rocking_horse.svg', x: 510, y: 394, name: 'Pony'},
+  snail: {file: 'icons/snail.svg', x: 332, y: 142, name: 'Snail'},
+  snail2: {file: 'icons/snail2.svg', x: 192, y: 122, name: 'Snail2'}
+  // seahorse
+  // robot
+  // zombie
+};
+
 var getRandomInt = function(min, max) {
   return Math.floor(Math.random() * (max - min + 1)) + min;
 };
@@ -63,6 +74,7 @@ var addEntrant = function() {
   if (allowChanging) {
     var name = $('#name').val(),
         num = $('#num').val(),
+        icon = $('#icon-picker').val(),
         col = $('select[name="colorpicker"]').val();
 
     if (name.length > 0 && !isNaN(+num)) {
@@ -83,16 +95,38 @@ var addEntrant = function() {
             jockey: name,
             num: i,
             col: col,
+            icon: icon,
             finishPos: 0
           });
         }
 
         // Add the jockey to the jockies list
         jockeys.push({
+          icon: icon,
           name: name,
           num: num,
           col: col
         });
+
+        // FIXME There is currently and asynchrony issue such that the icons
+        // are created without the colors
+        // Create colorized svg def
+        var loadSvg = function(xml) {
+          var importedNode = document.importNode(xml.documentElement, true);
+          defs.append("g")
+              .attr('id',icon + '-' +
+                    col.split('').splice(1,6).join(''))
+              .attr('transform','translate(-' + icon_list[icon].x + ',-' +
+                    icon_list[icon].y + ')')
+            .each(function(d, i) {
+              var icon = this.appendChild(importedNode.cloneNode(true));
+              d3.select(icon).selectAll('#color-me path')
+                 .style('fill',col)
+                 .style('stroke',col);
+            });
+        };
+
+        d3.xml(icon_list[icon].file, "image/svg+xml", loadSvg);
 
         updateJockeyLineup();
         updatePonyLineup();
@@ -300,64 +334,27 @@ var updatePonyLineup = function() {
 
   // Add new pony shapes
   var racePonies = newPonyGroup.append('svg:g')
-      .classed('pony',true);
+    .classed('pony',true);
 
-  switch (type)
-  {
-    case 'shape':
-      // Update positions for existing shapes
-      ponyGroup.select('.pony').select('.race-pony')
-        .transition().duration(100)
-          .attr('y',y(1)-Math.min(y(0.5)-y(0),height/10))
-          .attr('height',Math.min(y(0.5)-y(0),height/10))
-          .attr('width',x(10)-x(0));
+  // FIXME Update scale depending on figure size
+  // Update positions for existing icons
+  ponyGroup.select('.pony').select('.race-pony')
+    .transition().duration(100)
+      .attr('transform',function(d,i) {
+        return 'translate('+x(10)+','+y(1)+') scale(.2,.2)';
+      });
 
-      racePonies.append('svg:rect')
-          .style('stroke','none')
-          .attr('y',y(1)-Math.min(y(0.5)-y(0),height/10))
-          .attr('height',Math.min(y(0.5)-y(0),height/10))
-          .attr('width',x(10)-x(0))
-          .style('stroke','none')
-          .classed('race-pony',true)
-          .style('fill',function(d) { return d.col;});
-      break;
-    case 'bike':
-      // Update positions for existing shapes
-      ponyGroup.select('.pony').select('.race-pony')
-        .transition().duration(100)
-          .attr('transform',function(d,i) {
-            return 'translate('+x(10)+','+y(1)+') scale(.1,.1)';
-          });
+  // Add new icons
+  var newBikes = racePonies.append('svg:g')
+      .classed('race-pony',true)
+      .attr('transform',function(d,i) {
+        return 'translate('+x(10)+','+y(1)+') scale(.2,.2)';
+      });
 
-      var newBikes = racePonies.append('svg:g')
-          .classed('race-pony',true)
-          .attr('transform',function(d,i) {
-            return 'translate('+x(10)+','+y(1)+') scale(.1,.1)';
-          });
-
-      newBikes.append('use')
-        .attr('xlink:href',function(d) {
-          return '#road-bike-'+d.col.split('').splice(1,6).join('');
-        });
-      break;
-    case 'pony':
-      // Update positions for existing shapes
-      ponyGroup.select('.pony').select('.race-pony')
-        .transition().duration(100)
-          .attr('transform',function(d,i) {
-            return 'translate('+x(10)+','+y(1)+') scale(.1,.1)';
-          });
-
-      var newPonies = racePonies.append('svg:g')
-        .classed('race-pony',true)
-        .attr('transform',function(d,i) {
-          return 'translate('+x(10)+','+y(1)+') scale(.1,.1)';
-        });
-
-      newPonies.append('use')
-        .attr('xlink:href','#race-pony');
-      break;
-  }
+  newBikes.append('use')
+    .attr('xlink:href',function(d) {
+      return '#'+d.icon+'-'+d.col.split('').splice(1,6).join('');
+    });
 
   ponyGroup.exit().remove();
 };
@@ -590,6 +587,7 @@ $(window).resize(function() {
   updatePonyLineup();
 });
 
+// FIXME Reinstate advanced options
 //$("#race-dir-toggle").toggleSwitch({
 //      highlight: false,
 //      change: function(e) {
@@ -608,24 +606,6 @@ $(window).resize(function() {
 //        },
 //    });
 
-var bike = '';
-
-var clCount = 0;
-
-var loadSvg = function(xml) {
-  var j = clCount++;
-  var importedNode = document.importNode(xml.documentElement, true);
-  defs.append("g")
-      .attr('id','road-bike-'+
-                  colorList[j].value.split('').splice(1,6).join(''))
-      .attr('transform','translate(-551,-312)')
-    .each(function(d, i){
-      var bike = this.appendChild(importedNode.cloneNode(true));
-      d3.select(bike).selectAll('#frame path')
-         .style('fill',colorList[j].value)
-         .style('stroke',colorList[j].value);
-    });
-};
 
 // Add pop-up winner dialog
 var addWinnerDialog = function() {
@@ -667,19 +647,3 @@ var addWinnerDialog = function() {
 
 addWinnerDialog();
 
-// Create a differently colored version of each icon to be used
-// FIXME Maybe we should only create the icons when the jockey is added?
-//   This prevents us from having a bunch of unused refs in the svg
-for (var i=0; i < colorList.length; i++) {
-  d3.xml("icons/road.svg", "image/svg+xml", loadSvg);
-}
-
-d3.xml("icons/pony.svg", "image/svg+xml", function(xml) {
-  var importedNode = document.importNode(xml.documentElement, true);
-  defs.append("g")
-      .attr('id','race-pony')
-      .attr('transform','translate(-605,-471)')
-    .each(function(d, i){
-      var pony = this.appendChild(importedNode.cloneNode(true));
-    });
-});
