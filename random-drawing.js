@@ -215,8 +215,13 @@ var resetPonies = function() {
   d3.selectAll('.rank-entry').remove();
 };
 
-var randomizePonies = function(which) {
-  if (which === "Sorted") {
+var ponyOrder = 'sorted';
+
+var toggleRandomOrder = function() {
+  // TODO Change button style/activate
+  ponyOrder = ponyOrder == 'sorted' ? 'random' : 'sorted';
+
+  if (ponyOrder === "sorted") {
     // Sort ponies back to jockey order
     neworder = [];
     for (i=0; i < jockeys.length; i++) {
@@ -384,8 +389,12 @@ var expandAdvOptions = function() {
   }
 };
 
-var updateStartDir = function(which) {
-  if (which === "Left") {
+var startDir = 'left';
+
+var toggleStartDir = function() {
+  startDir = startDir == 'left' ? 'right' : 'left';
+
+  if (startDir === "left") {
     d3.select('#plot')
       .transition().duration(1000)
         .attr('transform','translate('+ml+','+mt+') scale(1,1)');
@@ -503,7 +512,7 @@ var type = 'bike';
 //var type = 'pony';
 
 var nextPlace = 1;
-var raceLength = 10; // Race length in seconds
+var raceLength = 60; // Race length in seconds
 
 var running = false;
 var done = false;
@@ -600,25 +609,14 @@ $(window).resize(function() {
   updatePonyLineup();
 });
 
-// FIXME Reinstate advanced options
-//$("#race-dir-toggle").toggleSwitch({
-//      highlight: false,
-//      change: function(e) {
-//        if (ponies.length > 0) {
-//          updateStartDir($('#race-dir-toggle').val());
-//        }
-//        },
-//    });
+// Advance option toggle buttons
+$("#race-dir-toggle").on( "click", function() {
+  toggleStartDir();
+});
 
-//$("#randomize-toggle").toggleSwitch({
-//      highlight:false,
-//      change: function(e) {
-//        if (ponies.length > 0) {
-//          randomizePonies($('#randomize-toggle').val());
-//        }
-//        },
-//    });
-
+$("#randomize-toggle").on("click", function() {
+  toggleRandomOrder();
+});
 
 // Add pop-up winner dialog
 var addWinnerDialog = function() {
