@@ -77,7 +77,7 @@ var addEntrant = function() {
         icon = $('#icon-picker').val(),
         col = $('select[name="colorpicker"]').val();
 
-    if (name.length > 0 && !isNaN(+num)) {
+    if (name.length > 0 && +num > 0) {
       // Check to see if a jockey name exists, if so, don't allow it
       // to be reused
       var previouslyUsed = false;
