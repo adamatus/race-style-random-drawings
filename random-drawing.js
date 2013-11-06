@@ -142,15 +142,9 @@ var addEntrant = function() {
         }
         updatePicker();
 
-        // Clear input boxes and reset the default names
-        $('#name').val('Jockey');
-        $('#num').val('#');
-        formDefaulter.add('name');
-        formDefaulter.add('num');
-        $('#name').removeClass("edited-input");
-        $('#num').removeClass("edited-input");
-        $('#name').addClass("default-input");
-        $('#num').addClass("default-input");
+        // Clear input boxes and reset focus
+        $('#name').val('');
+        $('#num').val('');
         $('#name').focus();
       }
     } else {
@@ -465,52 +459,6 @@ var updatePicker = function() {
 };
 
 updatePicker();
-
-// Have default values in form disappear on focus
-// From http://stackoverflow.com/a/12876076
-var formDefaulter = function() {
-  //Class to hold each form element
-  var FormElement = function(element){
-    var that = this;
-    this.element = element;
-
-    var initialVal = this.element.val();
-    var isEdited = false;
-
-    this.element.focus(function() { clearBox(); });
-    this.element.blur(function() { fillBox(); });
-
-    var clearBox = function() {
-      if (!isEdited) {
-        that.element.val("");
-        that.element.addClass("edited-input");
-        that.element.removeClass("default-input");
-        isEdited = true;
-      }
-    };
-    var fillBox = function() {
-      if (that.element.val() === "") {
-        that.element.val(initialVal);
-        that.element.removeClass("edited-input");
-        that.element.addClass("default-input");
-        isEdited = false;
-      }
-    };
-  };
-
-  var add = function(elementId) {
-    new FormElement($('#'+elementId));
-  };
-
-  return {
-    add: add
-  };
-}();
-
-$(function(){
-  formDefaulter.add('name');
-  formDefaulter.add('num');
-});
 
 var updateSpeed = function() {
   raceLength = 21-$('#race-speed').val();
