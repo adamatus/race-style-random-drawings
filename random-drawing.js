@@ -276,18 +276,29 @@ var updateJockeyLineup = function() {
   // Add new jockey entries
   var newJockeyList = jockeyList.enter()
       .append('div')
-      .classed('jockey',true);
+      .classed('jockey',true)
+      .append('form')
+      .attr('class','form-inline')
+      .attr('role','form');
 
-  newJockeyList.append('input')
+  var nameEntry = newJockeyList.append('div')
+    .attr('class','form-group');
+
+  nameEntry.append('input')
     .attr('type','text')
-    .attr('disabled','disabled')
+    .attr('disabled',true)
     .attr('value',function(d) { return d.name; })
+    .classed('form-control',true)
     .classed('jockey-name',true);
 
-  newJockeyList.append('input')
+  nameEntry = newJockeyList.append('div')
+    .attr('class','form-group');
+
+  nameEntry.append('input')
     .attr('type','text')
-    .attr('disabled','disabled')
+    .attr('disabled',true)
     .attr('value',function(d) { return d.num; })
+    .classed('form-control',true)
     .classed('jockey-num',true);
 
   newJockeyList.append('span')
@@ -297,9 +308,12 @@ var updateJockeyLineup = function() {
     .classed('icon',true)
     .classed('jockey-col',true);
 
-  newJockeyList.append('span')
+  newJockeyList.append('button')
     .text('\u2012')
-    .classed('jockey-remove',true)
+    .attr('type','button')
+    .classed('btn',true)
+    .classed('btn-default',true)
+    .classed('jockey-add',true)
     .on('click',function(d,i) {removeEntrant(i); });
 
 };
@@ -519,8 +533,8 @@ var done = false;
 var allowChanging = true;
 var advOptionsHidden = true;
 
-var width = $(window).width()-275;
-    height = $(window).height()-150;
+var width = $('#right-col').width();
+    height = $(window).height()-100;
 
 var xmax = 110;
 
@@ -586,9 +600,9 @@ d3.select('#data-region').selectAll('.border-line')
       .style('stroke-dasharray','10,10');
 
 $(window).resize(function() {
-  // Add in limits at which points we don't get smaller than
-  width = $(window).width()-275;
-  height = $(window).height()-150;
+  // TODO Add in limits at which points we don't get smaller than
+  width = $('#right-col').width();
+  height = $(window).height()-100;
 
   w = width - (ml + mr);
   h = height - (mb + mt);

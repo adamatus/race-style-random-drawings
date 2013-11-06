@@ -15,20 +15,6 @@ h2 {
 
 span { font-size: .9em; }
 
-#left-col {
-    width: 200px;
-    float: left;
-}
-
-#right-col {
-    margin-left: 200px;
-    position: relative;
-}
-
-.clear { 
-    clear: both;
-}
-
 .jockey-name {
     display: inline;
     width: 120px;
@@ -37,7 +23,7 @@ span { font-size: .9em; }
 
 .jockey-num {
     display: inline;
-    width: 30px;
+    width: 35px;
     margin-right: 2px;
     margin-left: 4px;
 }
@@ -46,21 +32,7 @@ span { font-size: .9em; }
     margin-left: 4px;
 }
 
-.inputs-text {
-   width: 200px;
-   float: left;
-}
-
-#center-add-button {
-    display: inline;
-}
-
-#inputs-other {
-   margin-left: 130px;
-   padding-top: 1px;
-}
-
-#adv-options { 
+#adv-options {
     margin-top: 10px;
     margin-left: 10px;
     margin-right: 10px;
@@ -69,30 +41,19 @@ span { font-size: .9em; }
     text-align: center;
 }
 
-#controls { 
+.jockey-add {
+  width: 35px;
+  margin-left: 6px;
+  cursor: pointer;
+}
+
+#controls {
     margin-top: 10px;
     margin-left: 10px;
     margin-right: 10px;
     padding-top: 10px;
     border-top: 1px solid black;
     text-align: center;
-}
-
-.edited-input {
-    color: black;
-}
-
-.default-input {
-    color: #999;
-}
-
-#add-jockey,
-.jockey-remove {
-    padding-left: 4px;
-    width: 10px;
-    text-align: center;
-    display: inline;
-    cursor: pointer;
 }
 
 #adv-options-expand {
