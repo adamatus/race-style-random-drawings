@@ -2,7 +2,6 @@
   <head>
     <title>Random Drawing - Carnival Race Style</title>
 
-    <link type="text/css" rel="stylesheet" href="button.css">
     <link type="text/css" rel="stylesheet" href="charts.css">
     <link rel="stylesheet" type="text/css" href="libs/jquery-simplecolorpicker/jquery.simplecolorpicker.css"/>
     <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css">
@@ -57,19 +56,15 @@
             <span>Speed:</span><input type="range" id="race-speed" name="race-speed" min="0" max="20"
             value="10" onChange="updateSpeed()">
 
-            <div id='race-dir-toggle-containter'>
               <button id='race-dir-toggle' type="button" class="btn btn-default">Flip L/R</button>
-            </div>
 
-            <div id='randomizee-toggle-containter'>
               <button id='randomize-toggle' type="button" class="btn btn-default">Randomize</button>
-            </div>
 
           </div>
         </div>
         <div id="controls">
-          <button id="go-button" class="first last" onclick="runButtonClick()">Go!</button>
-          <button id="pause-button" class="first last" onclick="resetButtonClick()">Reset</button>
+          <button id="go-button" type="button" class="btn btn-default" onclick="runButtonClick()">Go!</button>
+          <button id="pause-button" type="button" class="btn btn-default" onclick="resetButtonClick()">Reset</button>
         </div>
       </div>
       <div id="right-col">
