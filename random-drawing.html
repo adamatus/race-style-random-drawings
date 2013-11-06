@@ -1,0 +1,82 @@
+<html>
+  <head>
+    <title>Random Drawing - Carnival Race Style</title>
+
+    <link rel="stylesheet" type="text/css" href="libs/jquery-simplecolorpicker/jquery.simplecolorpicker.css"/>
+    <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="random-drawing.css">
+
+    <script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
+    <script language="javascript" type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+    <script language="javascript" type ="text/javascript" src="libs/jquery-simplecolorpicker/jquery.simplecolorpicker.js"></script>
+
+  </head>
+  <body>
+    <h1>Random Race!</h1>
+    <div class="container">
+      <div class="row">
+        <div id="left-col" class='col-md-3'>
+          <div id="jockey-list-cont">
+            <h2>Riders</h2>
+            <div class="inputs-text" id="jockey-list">
+            </div>
+          </div>
+          <div id="inputs">
+            <div class="inputs-text">
+              <form class="form-inline" role="form">
+                <div class="form-group">
+                  <label class="sr-only" for="name">Rider Name</label>
+                  <input type="name" class="form-control jockey-name" id="name" placeholder="Rider">
+                </div>
+                <div class="form-group">
+                  <label class="sr-only" for="num">Number of entries</label>
+                  <input type="name" class="form-control jockey-num" id="num" placeholder="#">
+                </div>
+              <select name="colorpicker" id="colorpicker">
+                <!-- Colors from ColorBrewer2.org  -->
+                <option value="#1F78B4">Blue</option>
+                <option value="#33A02C">Green</option>
+                <option value="#E31A1C">Red</option>
+                <option value="#FF7F00">Orange</option>
+                <option value="#6A3D9A">Purple</option>
+                <option value="#A6CEE3">Light Blue</option>
+                <option value="#B2DF8A">Light Green</option>
+                <option value="#FB9A99">Light Red</option>
+                <option value="#FDBF6F">Light Orange</option>
+                <option value="#CAB2D6">Light Purple</option>
+              </select><button id='add-jockey' type="button" class="btn btn-default jockey-add" onclick="addEntrant()">+</button>
+              </form>
+              <select name="icon-picker" id="icon-picker" class="form-control">
+                <option value="bike">Road Bike</option>
+                <option value="car">Race Car</option>
+                <option value="pony">Rocking Horse</option>
+                <option value="snail">Fighting Snail</option>
+                <option value="snail2">Happy Snail</option>
+              </select>
+            </div>
+          </div>
+          <div id="adv-options">
+            <span onclick="expandAdvOptions()" id="adv-options-title">+ Show Advanced Options</span>
+            <div id="adv-options-expand">
+              <span>Speed:</span><input type="range" id="race-speed" name="race-speed" min="0" max="20"
+              value="10" onChange="updateSpeed()">
+              <button id='race-dir-toggle' type="button" class="btn btn-default">Flip L/R</button>
+              <button id='randomize-toggle' type="button" class="btn btn-default">Randomize</button>
+            </div>
+          </div>
+          <div id="controls">
+            <button id="go-button" type="button" class="btn btn-default" onclick="runButtonClick()">Go!</button>
+            <button id="pause-button" type="button" class="btn btn-default" onclick="resetButtonClick()">Reset</button>
+          </div>
+        </div>
+        <div id="right-col" class='col-md-9'>
+          <div id="chart"></div>
+        </div>
+      </div>
+    </div>
+    <script language="javascript">
+    </script>
+    <script language="javascript" type="text/javascript" src="random-drawing.js"></script>
+    <script src="http://netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
+  </body>
+</html>

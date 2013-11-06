@@ -1,0 +1,61 @@
+svg {
+    background: rgb(191,168,114);
+    border:2px solid;
+    border-radius: 30px;
+    box-shadow: 5px 5px 10px #999999;
+}
+
+h1 { text-align: center; }
+
+h2 {
+    font-size: 1.25em;
+    margin-top: .3em;
+    margin-bottom: .3em;
+}
+
+span { font-size: .9em; }
+
+.jockey-name {
+    display: inline;
+    width: 120px;
+    margin-right: 2px;
+}
+
+.jockey-num {
+    display: inline;
+    width: 35px;
+    margin-right: 2px;
+    margin-left: 4px;
+}
+
+.jockey-col {
+    margin-left: 4px;
+}
+
+#adv-options {
+    margin-top: 10px;
+    margin-left: 10px;
+    margin-right: 10px;
+    padding-top: 10px;
+    border-top: 1px solid black;
+    text-align: center;
+}
+
+.jockey-add {
+  width: 35px;
+  margin-left: 6px;
+  cursor: pointer;
+}
+
+#controls {
+    margin-top: 10px;
+    margin-left: 10px;
+    margin-right: 10px;
+    padding-top: 10px;
+    border-top: 1px solid black;
+    text-align: center;
+}
+
+#adv-options-expand {
+    display: none;
+}
