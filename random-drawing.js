@@ -108,8 +108,6 @@ var addEntrant = function() {
           col: col
         });
 
-        // FIXME There is currently and asynchrony issue such that the icons
-        // are created without the colors
         // Create colorized svg def
         var loadSvg = function(xml) {
           var importedNode = document.importNode(xml.documentElement, true);
@@ -352,7 +350,6 @@ var updatePonyLineup = function() {
   var racePonies = newPonyGroup.append('svg:g')
     .classed('pony',true);
 
-  // FIXME Update scale depending on figure size
   // Update positions for existing icons
   ponyGroup.select('.pony').select('.race-pony')
     .transition().duration(100)
@@ -469,12 +466,8 @@ var ponies = [];
 var jockeys = [];
 var random = false;
 
-var type = 'bike';
-//var type = 'shape';
-//var type = 'pony';
-
 var nextPlace = 1;
-var raceLength = 60; // Race length in seconds
+var raceLength = 10; // Race length in seconds
 
 var running = false;
 var done = false;
