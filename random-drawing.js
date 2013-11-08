@@ -89,6 +89,15 @@ var updateSpeed = function() {
   console.log(raceLength);
 };
 
+var processEnter = function(e) {
+  if (e.which == 13) {
+    addEntrant();
+    e.preventDefault();
+  }
+};
+
+// Major task functions
+
 var addEntrant = function() {
   if (allowChanging) {
     var name = $('#name').val(),
@@ -412,18 +421,6 @@ var updatePonyLineup = function() {
   ponyGroup.exit().remove();
 };
 
-var expandAdvOptions = function() {
-  if (advOptionsHidden) {
-    $('#adv-options-expand').css({'display':'block'});
-    $('#adv-options-title').text('- Hide Advanced Options');
-    advOptionsHidden = false;
-  } else {
-    $('#adv-options-expand').css({'display':'none'});
-    $('#adv-options-title').text('+ Show Advanced Options');
-    advOptionsHidden = true;
-  }
-};
-
 var toggleRandomOrder = function() {
   // TODO Change button style/activate
   ponyOrder = ponyOrder == 'sorted' ? 'random' : 'sorted';
@@ -477,12 +474,20 @@ var toggleStartDir = function() {
   }
 };
 
-var processEnter = function(e) {
-  if (e.which == 13) {
-    addEntrant();
-    e.preventDefault();
+// UI specific functions
+
+var expandAdvOptions = function() {
+  if (advOptionsHidden) {
+    $('#adv-options-expand').css({'display':'block'});
+    $('#adv-options-title').text('- Hide Advanced Options');
+    advOptionsHidden = false;
+  } else {
+    $('#adv-options-expand').css({'display':'none'});
+    $('#adv-options-title').text('+ Show Advanced Options');
+    advOptionsHidden = true;
   }
 };
+
 
 var updatePicker = function() {
   // Add the color picker
