@@ -10,4 +10,4 @@ or balls to roll, so your fate rests in the hands on a random number generator!
 
 * Unlimited number of jockeys
 * Each jockey can have a unique number of ponies
-* Don't like ponies? Race bikes or cars instead (upcoming feature)
+* Don't like ponies? Race bikes or cars instead
