@@ -5,10 +5,15 @@ var i,j,
   car: {file: 'icons/race_car.svg', x: 503, y: 182, name: 'Race Car'},
   pony: {file: 'icons/rocking_horse.svg', x: 570, y: 500, name: 'Pony'},
   snail: {file: 'icons/snail.svg', x: 332, y: 142, name: 'Snail'},
-  snail2: {file: 'icons/snail2.svg', x: 192, y: 122, name: 'Snail2'}
-  // seahorse
-  // robot
-  // zombie
+  snail2: {file: 'icons/snail2.svg', x: 192, y: 122, name: 'Snail2'},
+  puma: {file: 'icons/puma.svg', x: 456, y: 358, name: 'Puma'},
+  thimble: {file: 'icons/thimble.svg', x: 50, y: 48, name: 'Thimble'},
+  monkey: {file: 'icons/monkey.svg', x: 780, y: 1301, name: 'Monkey'},
+  penguinswim: {file: 'icons/penguin-swim.svg', x: 507, y: 261, name: 'PenguinSwim'},
+  robot: {file: 'icons/robot.svg', x: 545, y: 949, name: 'Robot'},
+  zombie: {file: 'icons/zombie.svg', x: 192, y: 339, name: 'Zombie'},
+  seahorse: {file: 'icons/seahorse.svg', x: 218, y: 626, name: 'Seahorse'},
+  swallow: {file: 'icons/swallow.svg', x: 423, y: 300, name: 'Swallow'},
 },
   colorList = [
   {value: "#1F78B4", name: 'Blue', active: 1},
